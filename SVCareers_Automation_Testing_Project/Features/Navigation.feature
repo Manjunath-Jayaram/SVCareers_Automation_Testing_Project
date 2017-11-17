@@ -6,8 +6,7 @@
 @Login
 Scenario: Login in SVCareers page
 	Given SVCareers page is already open
-	And Fill the <UserName>
-	And Fill the <Password>
+	And Fill the <UserName>, <Password>
 	Then Click on Login button
 	| UserName          | Password |
-	| Manjunath.Jayaram | sv.123   | 
+	| Manjunath.Jayaram | sv123    | 

@@ -76,17 +76,15 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("SVCareers page is already open", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("Fill the <UserName>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
- testRunner.And("Fill the <Password>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Fill the <UserName>, <Password>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "UserName",
                         "Password"});
             table1.AddRow(new string[] {
                         "Manjunath.Jayaram",
-                        "sv.123"});
-#line 11
+                        "sv123"});
+#line 10
  testRunner.Then("Click on Login button", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
