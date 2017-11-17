@@ -63,32 +63,6 @@ namespace SVCareers_Automation_Testing_Project.Features
         {
             testRunner.CollectScenarioErrors();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Login in SVCareers page")]
-        [NUnit.Framework.CategoryAttribute("Login")]
-        public virtual void LoginInSVCareersPage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login in SVCareers page", new string[] {
-                        "Login"});
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("SVCareers page is already open", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
- testRunner.And("Fill the <UserName>, <Password>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "UserName",
-                        "Password"});
-            table1.AddRow(new string[] {
-                        "Manjunath.Jayaram",
-                        "sv123"});
-#line 10
- testRunner.Then("Click on Login button", ((string)(null)), table1, "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore
