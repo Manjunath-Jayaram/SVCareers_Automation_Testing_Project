@@ -19,7 +19,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [AfterScenario]
         public void TearDownScenario()
         {
-            webDriver.Dispose();
+            //webDriver.Dispose();
         }
 
         [Given(@"Browser is open")]

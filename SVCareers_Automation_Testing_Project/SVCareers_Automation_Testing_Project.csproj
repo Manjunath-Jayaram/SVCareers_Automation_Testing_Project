@@ -70,49 +70,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Features\JobRequestReport.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JobRequestReport.feature</DependentUpon>
-    </Compile>
     <Compile Include="Features\Navigation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Navigation.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\NewJobRequest.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NewJobRequest.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\ReferFriend.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReferFriend.feature</DependentUpon>
-    </Compile>
     <Compile Include="HelperClass.cs" />
     <Compile Include="StepDefinitions\NavigationSteps.cs" />
-    <Compile Include="StepDefinitions\NewJobRequestSteps.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Features\JobRequestReport.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>JobRequestReport.feature.cs</LastGenOutput>
-    </None>
     <None Include="Features\Navigation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Navigation.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\NewJobRequest.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>NewJobRequest.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\ReferFriend.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ReferFriend.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

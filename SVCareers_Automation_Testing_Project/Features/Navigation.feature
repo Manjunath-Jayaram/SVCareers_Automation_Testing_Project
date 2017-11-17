@@ -3,8 +3,11 @@
 	As a user
 	I want to use the browser address bar
 
-@GoToCareersPage
-Scenario: Browse to SVCareers page
-	Given Browser is open
-	And Navigation address is entered in the browser address bar
-	Then On Enter i should land in the SVCareers login page
+@Login
+Scenario: Login in SVCareers page
+	Given SVCareers page is already open
+	And Fill the <UserName>
+	And Fill the <Password>
+	Then Click on Login button
+	| UserName          | Password |
+	| Manjunath.Jayaram | sv.123   | 
