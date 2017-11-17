@@ -15,13 +15,12 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver = new ChromeDriver();
             webDriver.Navigate().GoToUrl("http://spicareers-uat/spicareers/");
-            webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
         }
 
         [AfterScenario]
         public void TearDownScenario()
         {
-            //webDriver.Dispose();
         }
 
         [Given(@"SVCareers page is already open")]
@@ -43,7 +42,9 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Click on Login button")]
         public void ThenClickOnLoginButton(Table table)
         {
-            ScenarioContext.Current.Pending();
+            IWebElement elLoginBtn = webDriver.FindElement(By.Id("svCareersLoginId"));
+            elLoginBtn.Click();
+            //ScenarioContext.Current.Pending();
         }
     }
 }
