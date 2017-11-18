@@ -238,6 +238,76 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Clear all the job requests filter")]
+        [NUnit.Framework.CategoryAttribute("ClearAll")]
+        [NUnit.Framework.CategoryAttribute("job")]
+        [NUnit.Framework.CategoryAttribute("requests")]
+        [NUnit.Framework.CategoryAttribute("filter")]
+        public virtual void ClearAllTheJobRequestsFilter()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Clear all the job requests filter", new string[] {
+                        "ClearAll",
+                        "job",
+                        "requests",
+                        "filter"});
+#line 76
+this.ScenarioSetup(scenarioInfo);
+#line 77
+ testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 78
+ testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 79
+ testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 80
+ testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 81
+ testRunner.Then("Filter the job requests on selecting the respective country", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 82
+ testRunner.Then("Filter the job requests on keyword search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 83
+ testRunner.Then("Click on search button based on filter selection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 84
+ testRunner.Then("Click on clear all filter button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 85
+ testRunner.Then("Click on search button based on filter selection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Pagination validation")]
+        [NUnit.Framework.CategoryAttribute("Pagination")]
+        [NUnit.Framework.CategoryAttribute("validation")]
+        public virtual void PaginationValidation()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pagination validation", new string[] {
+                        "Pagination",
+                        "validation"});
+#line 88
+this.ScenarioSetup(scenarioInfo);
+#line 89
+ testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 90
+ testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 91
+ testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 92
+ testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 93
+ testRunner.Then("Check if the pagination exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 94
+ testRunner.Then("Check if the next button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 95
+ testRunner.Then("Check if the previous button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 96
+ testRunner.Then("Check if the last button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 97
+ testRunner.Then("Check if the first button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
