@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using SVCareers_Automation_Testing_Project.Hooks;
 using System;
 using System.Linq;
 using System.Threading;
@@ -49,9 +50,16 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the job you want to refer from the grid")]
         public void ThenSelectTheJobYouWantToReferFromTheGrid()
         {
-            IWebElement elJobRequest = webDriver.FindElement(By.CssSelector("#ShowDesc table tbody tr:nth-child(3) input[type=checkbox]"));
-            elJobRequest.Click();
-            Thread.Sleep(2000);
+            if (webDriver.FindElements(By.CssSelector("#ShowDesc")).Count > 0)
+            {
+                IWebElement elJobRequest = webDriver.FindElement(By.CssSelector("#ShowDesc table tbody tr:nth-child(3) input[type=checkbox]"));
+                elJobRequest.Click();
+                Thread.Sleep(2000);
+            }
+            else
+            {
+                SpecHooks.extentTest.Warning("No job requests found");
+            }
         }
 
         [Then(@"Click on refer a friend link")]
@@ -177,5 +185,47 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] a[title=search]")).Click();
         }
+
+        [Then(@"Click on clear all filter button")]
+        public void ThenClickOnClearAllFilterButton()
+        {
+            Thread.Sleep(2000);
+            webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] a[title*=Clear]")).Click();
+        }
+
+        [Then(@"Check if the pagination exists")]
+        public void ThenCheckIfThePaginationExists()
+        {
+            if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count == 0)
+            {
+                SpecHooks.extentTest.Warning("No job requests found");
+            }
+        }
+
+        [Then(@"Check if the next button click is working")]
+        public void ThenCheckIfTheNextButtonClickIsWorking()
+        {
+            webDriver.FindElement(By.CssSelector("a[title*=Next]")).Click();
+        }
+
+        [Then(@"Check if the previous button click is working")]
+        public void ThenCheckIfThePreviousButtonClickIsWorking()
+        {
+            webDriver.FindElement(By.CssSelector("a[title*=Previous]")).Click();
+        }
+
+        [Then(@"Check if the last button click is working")]
+        public void ThenCheckIfTheLastButtonClickIsWorking()
+        {
+            webDriver.FindElement(By.CssSelector("a[title*=Last]")).Click();
+        }
+
+        [Then(@"Check if the first button click is working")]
+        public void ThenCheckIfTheFirstButtonClickIsWorking()
+        {
+            webDriver.FindElement(By.CssSelector("a[title*=First]")).Click();
+        }
+
+
     }
 }

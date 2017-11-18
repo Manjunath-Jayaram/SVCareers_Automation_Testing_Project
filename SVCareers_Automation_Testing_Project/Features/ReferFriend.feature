@@ -72,3 +72,26 @@ Scenario: Filter the job requests based on country selection and keyword search
 	Then Enter the comments
 	Then Submit the referal form
 
+@ClearAll job requests filter
+Scenario: Clear all the job requests filter
+	Given Launch the browser
+	Given Open SVCareers websites
+	And Type your username and password in the login form
+	Then Click on Login form submit button
+	Then Filter the job requests on selecting the respective country
+	Then Filter the job requests on keyword search
+	Then Click on search button based on filter selection
+	Then Click on clear all filter button
+	Then Click on search button based on filter selection
+
+@Pagination validation
+Scenario: Pagination validation
+	Given Launch the browser
+	Given Open SVCareers websites
+	And Type your username and password in the login form
+	Then Click on Login form submit button
+	Then Check if the pagination exists
+	Then Check if the next button click is working
+	Then Check if the previous button click is working
+	Then Check if the last button click is working
+	Then Check if the first button click is working
