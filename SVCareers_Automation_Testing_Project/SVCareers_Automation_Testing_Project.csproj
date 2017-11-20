@@ -79,6 +79,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Features\CreateJobRequest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateJobRequest.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Navigation.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,11 +98,16 @@
     <Compile Include="Hooks\SpecHooks.cs" />
     <Compile Include="Model\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepDefinitions\CreateJobRequestSteps.cs" />
     <Compile Include="StepDefinitions\NavigationSteps.cs" />
     <Compile Include="StepDefinitions\ReferFriendSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\CreateJobRequest.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateJobRequest.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Navigation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Navigation.feature.cs</LastGenOutput>
