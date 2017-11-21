@@ -19,7 +19,6 @@ namespace SVCareers_Automation_Testing_Project.Hooks
         public static ExtentReports extent;
         public static ExtentHtmlReporter htmlReporter;
         public static ExtentTest extentTest;
-        public static IWebDriver webDriver;
 
         [BeforeTestRun]
         public static void BeforeTestRun()

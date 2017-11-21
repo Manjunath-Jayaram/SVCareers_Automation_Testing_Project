@@ -36,7 +36,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             elUserName.SendKeys("Ashwini.Shashikiran");
 
             IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
-            elPassword.SendKeys("spi123");
+            elPassword.SendKeys("sv123");
         }
         
         [Then(@"Click on Login submit button")]
@@ -94,7 +94,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Add the new client name")]
         public void ThenAddTheNewClientName()
         {
-            webDriver.FindElement(By.CssSelector("input[name=newClient]")).SendKeys("SFG");
+            webDriver.FindElement(By.CssSelector("input[name=newClient]")).SendKeys("SFGTest2");
         }
 
         [Then(@"Click on add a new project")]
@@ -115,7 +115,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             if (webDriver.FindElements(By.CssSelector("input[name=projectTitleForNew]")).Count() > 0)
             {
-                webDriver.FindElement(By.CssSelector("input[name=projectTitleForNew]")).SendKeys("SFG");
+                webDriver.FindElement(By.CssSelector("input[name=projectTitleForNew]")).SendKeys("SFGTest2");
             }
             else if(webDriver.FindElements(By.CssSelector("select[name=projectTitle]")).Count() > 0)
             {
@@ -213,7 +213,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
                 selectMonth.SelectByIndex(11);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                webDriver.FindElement(By.CssSelector("a[href*=24]")).Click();
+                webDriver.FindElement(By.CssSelector("a[href*=changeDay]")).Click();
             }
             catch(Exception ex)
             {
@@ -278,7 +278,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
             selectMonth.SelectByIndex(11);
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.CssSelector("a[href*=changeDay(22)]")).Click();
+            webDriver.FindElement(By.CssSelector("a[href*=changeDay]")).Click();
         }
 
         [Then(@"Select the requirement type")]

@@ -2,29 +2,36 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SVCareers_Automation_Testing_Project.Hooks;
+using SVCareers_Automation_Testing_Project.Model;
 using System;
 using System.Linq;
 using System.Threading;
 using TechTalk.SpecFlow;
+using System.Configuration;
 
 namespace SVCareers_Automation_Testing_Project.StepDefinitions
 {
     [Binding]
     public class ReferFriendSteps
     {
+        public ReferFriendSteps()
+        {
+            ExcelLibrary.PopulateInCollection(ConfigurationManager.AppSettings["ReferAFriendFilePath"]);
+        }
+
         private IWebDriver webDriver;
 
         [Given(@"Launch the browser")]
         public void GivenLaunchTheBrowser()
         {
             webDriver = new ChromeDriver();
+            webDriver.Manage().Window.Maximize();
         }
         
         [Given(@"Open SVCareers websites")]
         public void GivenOpenSVCareersWebsites()
         {
-            webDriver.Navigate().GoToUrl("http://spicareers-uat/spicareers/");
-            webDriver.Manage().Window.Maximize();
+            webDriver.Navigate().GoToUrl(ConfigurationManager.AppSettings["SVCareersURL"].ToString());
         }
         
         [Given(@"Type your username and password in the login form")]
@@ -33,10 +40,10 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             Thread.Sleep(2000);
             webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
             IWebElement elUserName = webDriver.FindElement(By.Name("loginId"));
-            elUserName.SendKeys("Manjunath.Jayaram");
+            elUserName.SendKeys(ExcelLibrary.ReadData(1, "UserName"));
 
             IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
-            elPassword.SendKeys("sv123");
+            elPassword.SendKeys(ExcelLibrary.ReadData(1, "Password"));
         }
 
         [Then(@"Click on Login form submit button")]
@@ -89,77 +96,100 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Enter candidate firstname")]
         public void ThenEnterCandidateFirstname()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candFirstName]")).SendKeys("George");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candFirstName]")).SendKeys(ExcelLibrary.ReadData(1, "FirstName"));
         }
         
         [Then(@"Enter candidate middlename")]
         public void ThenEnterCandidateMiddlename()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candMiddleName]")).SendKeys("");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candMiddleName]")).SendKeys(ExcelLibrary.ReadData(1, "MiddleName"));
         }
 
         [Then(@"Enter candidate lastname")]
         public void ThenEnterCandidateLastname()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candLastName]")).SendKeys("Thompson");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candLastName]")).SendKeys(ExcelLibrary.ReadData(1, "LastName"));
         }
 
         [Then(@"Select the gender")]
         public void ThenSelectTheGender()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input#male")).Click();
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input#"+ ExcelLibrary.ReadData(1, "Gender"))).Click();
         }
         
         [Then(@"Enter the candidate email address")]
         public void ThenEnterTheCandidateEmailAddress()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys("GeorgeThompsn@gmail.com");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys(ExcelLibrary.ReadData(1, "Email"));
         }
         
         [Then(@"Enter the candidate phone number")]
         public void ThenEnterTheCandidatePhoneNumber()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candHomePhone]")).SendKeys("9888888885");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candHomePhone]")).SendKeys(ExcelLibrary.ReadData(1, "Phone"));
+            try
+            {
+               
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
         }
         
         [Then(@"Select the candidate type as experienced")]
         public void ThenSelectTheCandidateTypeAsExperienced()
         {
-            SelectElement selectCandidateType = new SelectElement(webDriver.FindElement(By.Name("candType")));
-            selectCandidateType.SelectByIndex(2);
-            Thread.Sleep(1000);
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+                wait.Until(ExpectedConditions.AlertIsPresent());
+                IAlert alert = HelperClass.Driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                alert.Accept();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            finally
+            {
+                SelectElement selectCandidateType = new SelectElement(webDriver.FindElement(By.Name("candType")));
+                selectCandidateType.SelectByText(ExcelLibrary.ReadData(1, "CandidateType"));
+                Thread.Sleep(1000);
+            }
         }
         
         [Then(@"Enter the candidate experience")]
         public void ThenEnterTheCandidateExperience()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=minExperience]")).SendKeys("5");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=minExperience]")).SendKeys(ExcelLibrary.ReadData(1, "ExperienceInYrs"));
         }
         
         [Then(@"Select the candidates expertise technology")]
         public void ThenSelectTheCandidatesExpertiseTechnology()
         {
             SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
-            selectTechnology.SelectByIndex(2);
+            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
         }
         
         [Then(@"Enter the notice period")]
         public void ThenEnterTheNoticePeriod()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=noticePeriod]")).SendKeys("30");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=noticePeriod]")).SendKeys(ExcelLibrary.ReadData(1, "NoticePeriodInDays"));
         }
         
         [Then(@"Upload the resume of the candidate")]
         public void ThenUploadTheResumeOfTheCandidate()
         {
             IWebElement fileUpload = webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[type=file]"));
-            fileUpload.SendKeys(@"C:\Work\Resume.pdf");
+            fileUpload.SendKeys(ExcelLibrary.ReadData(1, "Resume"));
         }
         
         [Then(@"Enter the comments")]
         public void ThenEnterTheComments()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] textarea[name=comments]")).SendKeys("Candidate has a H1B Visa");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] textarea[name=comments]")).SendKeys(ExcelLibrary.ReadData(1, "Comments"));
             Thread.Sleep(2000);
         }
         
@@ -167,26 +197,30 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenSubmitTheReferalForm()
         {
             webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] a[title=Submit]")).Click();
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.AlertIsPresent());
+            IAlert alert = HelperClass.Driver.SwitchTo().Alert();
+            alert.Accept();
         }
         
         [Then(@"Select the candidate type as fresher")]
         public void ThenSelectTheCandidateTypeAsFresher()
         {
             SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
-            selectTechnology.SelectByIndex(1);
+            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
         }
 
         [Then(@"Filter the job requests on selecting the respective country")]
         public void ThenFilterTheJobRequestsOnSelectingTheRespectiveCountry()
         {
             SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("selCountry")));
-            selectTechnology.SelectByIndex(1);
+            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Country"));
         }
 
         [Then(@"Filter the job requests on keyword search")]
         public void ThenFilterTheJobRequestsOnKeywordSearch()
         {
-            webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] input[name=keyword]")).SendKeys("Testing");
+            webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] input[name=keyword]")).SendKeys(ExcelLibrary.ReadData(1, "SearchKeyword"));
         }
 
         [Then(@"Click on search button based on filter selection")]
@@ -234,7 +268,5 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver.FindElement(By.CssSelector("a[title*=First]")).Click();
         }
-
-
     }
 }
