@@ -31,8 +31,7 @@ namespace SVCareers_Automation_Testing_Project.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ReferFriend", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
-                    "f two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ReferFriend", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -77,47 +76,47 @@ namespace SVCareers_Automation_Testing_Project.Features
                         "an",
                         "experience",
                         "candidate"});
-#line 7
+#line 4
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 5
  testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 9
+#line 6
  testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 10
+#line 7
  testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
+#line 8
  testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 12
+#line 9
  testRunner.Then("Select the job you want to refer from the grid", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 13
+#line 10
  testRunner.Then("Click on refer a friend link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 14
- testRunner.Given("Switch the focus to the candidate details form popup", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 15
+#line 11
+ testRunner.When("Switch the focus to the candidate details form popup", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
  testRunner.Then("Enter candidate firstname", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 16
+#line 13
  testRunner.Then("Enter candidate middlename", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 17
+#line 14
  testRunner.Then("Enter candidate lastname", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 18
+#line 15
  testRunner.Then("Select the gender", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 19
+#line 16
  testRunner.Then("Enter the candidate email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 20
+#line 17
  testRunner.Then("Enter the candidate phone number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 21
+#line 18
  testRunner.Then("Select the candidate type as experienced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 22
+#line 19
  testRunner.Then("Enter the candidate experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 23
+#line 20
  testRunner.Then("Select the candidates expertise technology", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 24
+#line 21
  testRunner.Then("Enter the notice period", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 25
+#line 22
  testRunner.Then("Upload the resume of the candidate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 26
+#line 23
  testRunner.Then("Enter the comments", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 27
+#line 24
  testRunner.Then("Submit the referal form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -134,41 +133,41 @@ this.ScenarioSetup(scenarioInfo);
                         "Refer",
                         "a",
                         "fresher"});
-#line 30
+#line 27
 this.ScenarioSetup(scenarioInfo);
-#line 31
+#line 28
  testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 32
+#line 29
  testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 33
+#line 30
  testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 34
+#line 31
  testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 35
+#line 32
  testRunner.Then("Select the job you want to refer from the grid", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 36
+#line 33
  testRunner.Then("Click on refer a friend link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 37
+#line 34
  testRunner.Given("Switch the focus to the candidate details form popup", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 38
+#line 35
  testRunner.Then("Enter candidate firstname", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 39
+#line 36
  testRunner.Then("Enter candidate middlename", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 40
+#line 37
  testRunner.Then("Enter candidate lastname", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 41
+#line 38
  testRunner.Then("Select the gender", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 42
+#line 39
  testRunner.Then("Enter the candidate email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 43
+#line 40
  testRunner.Then("Enter the candidate phone number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 44
+#line 41
  testRunner.Then("Select the candidate type as fresher", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 45
+#line 42
  testRunner.Then("Upload the resume of the candidate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 46
+#line 43
  testRunner.Then("Enter the comments", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 47
+#line 44
  testRunner.Then("Submit the referal form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -187,53 +186,53 @@ this.ScenarioSetup(scenarioInfo);
                         "the",
                         "job",
                         "requests"});
-#line 50
+#line 47
 this.ScenarioSetup(scenarioInfo);
-#line 51
+#line 48
  testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 52
+#line 49
  testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 53
+#line 50
  testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 54
+#line 51
  testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 55
+#line 52
  testRunner.Then("Filter the job requests on selecting the respective country", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 56
+#line 53
  testRunner.Then("Filter the job requests on keyword search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 57
+#line 54
  testRunner.Then("Click on search button based on filter selection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 58
+#line 55
  testRunner.Then("Select the job you want to refer from the grid", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 59
+#line 56
  testRunner.Then("Click on refer a friend link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 60
+#line 57
  testRunner.Given("Switch the focus to the candidate details form popup", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 61
+#line 58
  testRunner.Then("Enter candidate firstname", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 62
+#line 59
  testRunner.Then("Enter candidate middlename", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 63
+#line 60
  testRunner.Then("Enter candidate lastname", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 64
+#line 61
  testRunner.Then("Select the gender", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 65
+#line 62
  testRunner.Then("Enter the candidate email address", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 66
+#line 63
  testRunner.Then("Enter the candidate phone number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 67
+#line 64
  testRunner.Then("Select the candidate type as experienced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 68
+#line 65
  testRunner.Then("Enter the candidate experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 69
+#line 66
  testRunner.Then("Select the candidates expertise technology", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 70
+#line 67
  testRunner.Then("Enter the notice period", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 71
+#line 68
  testRunner.Then("Upload the resume of the candidate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 72
+#line 69
  testRunner.Then("Enter the comments", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 73
+#line 70
  testRunner.Then("Submit the referal form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -252,25 +251,25 @@ this.ScenarioSetup(scenarioInfo);
                         "job",
                         "requests",
                         "filter"});
-#line 76
+#line 73
 this.ScenarioSetup(scenarioInfo);
-#line 77
+#line 74
  testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 78
+#line 75
  testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 79
+#line 76
  testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 80
+#line 77
  testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 81
+#line 78
  testRunner.Then("Filter the job requests on selecting the respective country", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 82
+#line 79
  testRunner.Then("Filter the job requests on keyword search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 83
+#line 80
  testRunner.Then("Click on search button based on filter selection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 84
+#line 81
  testRunner.Then("Click on clear all filter button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 85
+#line 82
  testRunner.Then("Click on search button based on filter selection", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -285,25 +284,25 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Pagination validation", new string[] {
                         "Pagination",
                         "validation"});
-#line 88
+#line 85
 this.ScenarioSetup(scenarioInfo);
-#line 89
+#line 86
  testRunner.Given("Launch the browser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 90
+#line 87
  testRunner.Given("Open SVCareers websites", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 91
+#line 88
  testRunner.And("Type your username and password in the login form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 92
+#line 89
  testRunner.Then("Click on Login form submit button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 93
+#line 90
  testRunner.Then("Check if the pagination exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 94
+#line 91
  testRunner.Then("Check if the next button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 95
+#line 92
  testRunner.Then("Check if the previous button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 96
+#line 93
  testRunner.Then("Check if the last button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 97
+#line 94
  testRunner.Then("Check if the first button click is working", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

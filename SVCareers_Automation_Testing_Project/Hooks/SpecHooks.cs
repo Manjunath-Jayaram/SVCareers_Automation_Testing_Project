@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,7 @@ namespace SVCareers_Automation_Testing_Project.Hooks
         public static ExtentReports extent;
         public static ExtentHtmlReporter htmlReporter;
         public static ExtentTest extentTest;
+        public static IWebDriver webDriver;
 
         [BeforeTestRun]
         public static void BeforeTestRun()
