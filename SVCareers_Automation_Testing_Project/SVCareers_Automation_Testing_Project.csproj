@@ -124,6 +124,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Data\CreateJobRequest.xlsx" />
+    <None Include="Data\JobRequestReport.xlsx" />
     <None Include="Data\ReferFriend.xlsx" />
     <None Include="Features\AddToRequisition.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

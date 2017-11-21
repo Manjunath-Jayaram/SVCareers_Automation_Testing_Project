@@ -2,7 +2,9 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SVCareers_Automation_Testing_Project.Hooks;
+using SVCareers_Automation_Testing_Project.Model;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 using TechTalk.SpecFlow;
@@ -13,6 +15,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
     public class JobRequestReportSteps
     {
         private IWebDriver webDriver;
+
+        public JobRequestReportSteps()
+        {
+            ExcelLibrary.PopulateInCollection(ConfigurationManager.AppSettings["JobRequestReportFilePath"]);
+        }
 
         [Given(@"Launch the web browser window")]
         public void GivenLaunchTheWebBrowserWindow()
@@ -33,10 +40,10 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             Thread.Sleep(2000);
             webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
             IWebElement elUserName = webDriver.FindElement(By.Name("loginId"));
-            elUserName.SendKeys("Ashwini.Shashikiran");
+            elUserName.SendKeys(ExcelLibrary.ReadData(1, "UserName"));
 
             IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
-            elPassword.SendKeys("sv123");
+            elPassword.SendKeys(ExcelLibrary.ReadData(1, "Password"));
         }
         
         [Then(@"Click on Login button to login to SVCareers website")]
@@ -84,56 +91,56 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenSelectTheLocationForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("location")));
-            selectRole.SelectByText("India");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Location"));
         }
 
         [Then(@"Select the organization for the job request report")]
         public void ThenSelectTheOrganizationForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("organization")));
-            selectRole.SelectByText("IT");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Organization"));
         }
 
         [Then(@"Select the client for the job request report")]
         public void ThenSelectTheClientForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("client")));
-            selectRole.SelectByText("APL Logistics");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Client"));
         }
 
         [Then(@"Select the status for the job request report")]
         public void ThenSelectTheStatusForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("statusFilter")));
-            selectRole.SelectByText("All");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Status"));
         }
 
         [Then(@"Select the technology for the job request report")]
         public void ThenSelectTheTechnologyForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("technology")));
-            selectRole.SelectByText(".Net");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
         }
 
         [Then(@"Select the certainty for the job request report")]
         public void ThenSelectTheCertaintyForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("resCertainity")));
-            selectRole.SelectByText("Confirmed");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Certainty"));
         }
 
         [Then(@"Select the staffing type for the job request report")]
         public void ThenSelectTheStaffingTypeForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("stuffingType")));
-            selectRole.SelectByText("All");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "StaffingTypes"));
         }
 
         [Then(@"Select the created by for the job request report")]
         public void ThenSelectTheCreatedByForTheJobRequestReport()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("jbRqstFltrCreatedBy")));
-            selectRole.SelectByText("Ashwini  Shashikiran");
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "CreatedBy"));
         }
 
         [Then(@"Select the date range")]
@@ -160,7 +167,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
             SelectElement dateCriteria = new SelectElement(webDriver.FindElement(By.Name("jbRqstFilterDtCriteria")));
-            dateCriteria.SelectByText("Created On");
+            dateCriteria.SelectByText(ExcelLibrary.ReadData(1, "DateCriteria"));
         }
 
         [Then(@"Generate the excel report of the job requests")]
