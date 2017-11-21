@@ -77,6 +77,15 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             Thread.Sleep(2000);
         }
 
+        [When(@"Switch the focus to the candidate details form popup")]
+        public void WhenSwitchTheFocusToTheCandidateDetailsFormPopup()
+        {
+            Thread.Sleep(2000);
+            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+            Thread.Sleep(2000);
+        }
+
+
         [Then(@"Enter candidate firstname")]
         public void ThenEnterCandidateFirstname()
         {
@@ -104,13 +113,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Enter the candidate email address")]
         public void ThenEnterTheCandidateEmailAddress()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys("GeorgeThompson@gmail.com");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys("GeorgeThompsn@gmail.com");
         }
         
         [Then(@"Enter the candidate phone number")]
         public void ThenEnterTheCandidatePhoneNumber()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candHomePhone]")).SendKeys("9888888888");
+            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candHomePhone]")).SendKeys("9888888885");
         }
         
         [Then(@"Select the candidate type as experienced")]

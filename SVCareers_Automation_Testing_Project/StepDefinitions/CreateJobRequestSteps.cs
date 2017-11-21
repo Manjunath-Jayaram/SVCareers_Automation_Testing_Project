@@ -36,7 +36,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             elUserName.SendKeys("Ashwini.Shashikiran");
 
             IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
-            elPassword.SendKeys("sv123");
+            elPassword.SendKeys("spi123");
         }
         
         [Then(@"Click on Login submit button")]
@@ -213,7 +213,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
                 selectMonth.SelectByIndex(11);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                webDriver.FindElement(By.CssSelector("a[href*=changeDay]")).Click();
+                webDriver.FindElement(By.CssSelector("a[href*=24]")).Click();
             }
             catch(Exception ex)
             {
@@ -278,7 +278,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
             selectMonth.SelectByIndex(11);
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.CssSelector("a[href*=changeDay]")).Click();
+            webDriver.FindElement(By.CssSelector("a[href*=changeDay(22)]")).Click();
         }
 
         [Then(@"Select the requirement type")]

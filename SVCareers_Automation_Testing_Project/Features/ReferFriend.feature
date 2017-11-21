@@ -1,7 +1,4 @@
 ﻿Feature: ReferFriend
-	In order to avoid silly mistakes
-	As a math idiot
-	I want to be told the sum of two numbers
 
 @Refer an experience candidate
 Scenario: Refer an experience candidate
@@ -11,7 +8,7 @@ Scenario: Refer an experience candidate
 	Then Click on Login form submit button
 	Then Select the job you want to refer from the grid
 	Then Click on refer a friend link
-	Given Switch the focus to the candidate details form popup
+	When Switch the focus to the candidate details form popup
 	Then Enter candidate firstname
 	Then Enter candidate middlename
 	Then Enter candidate lastname
