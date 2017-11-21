@@ -1,7 +1,7 @@
 ﻿Feature: JobRequestReport
 
 @Get all job request report on excel with all filters
-Scenario: Get job request report on excel with all filters
+Scenario: Get all job request report on excel with all filters
 	Given Launch the web browser window
 	Given Open SVCareers website in the browser
 	And Enter the username and password in the login form
@@ -23,7 +23,7 @@ Scenario: Get job request report on excel with all filters
 	Then Select the all job requests export data option
 
 @Get all external hiring job request report on excel with all filters
-Scenario: Get job request report on excel with all filters
+Scenario: Get all external hiring job request report on excel with all filters
 	Given Launch the web browser window
 	Given Open SVCareers website in the browser
 	And Enter the username and password in the login form
@@ -45,7 +45,7 @@ Scenario: Get job request report on excel with all filters
 	Then Select the external hiring job requests export data option
 
 @Get all action required job request report on excel with all filters
-Scenario: Get job request report on excel with all filters
+Scenario: Get all action required job request report on excel with all filters
 	Given Launch the web browser window
 	Given Open SVCareers website in the browser
 	And Enter the username and password in the login form
