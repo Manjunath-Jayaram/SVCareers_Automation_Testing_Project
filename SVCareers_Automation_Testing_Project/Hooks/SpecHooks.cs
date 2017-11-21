@@ -27,7 +27,7 @@ namespace SVCareers_Automation_Testing_Project.Hooks
             //string curPath = GenericHelper.CurrentDirectory();
             DirectoryInfo currentDir = new DirectoryInfo(Directory.GetCurrentDirectory());
             string currentTime = DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss");
-            string ResultPath = currentDir.FullName+@"\ResultFolder";
+            string ResultPath = @"C:\Websites\Selenium\SVCareers_Automation_Testing_Project\ResultFolder";
 
             //ObjectRepository.ParentResultPath = ResultPath;
             //GenericHelper.CreatFolder(ResultPath);
