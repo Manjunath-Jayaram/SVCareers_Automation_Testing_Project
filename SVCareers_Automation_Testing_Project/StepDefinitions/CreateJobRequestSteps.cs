@@ -2,7 +2,9 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SVCareers_Automation_Testing_Project.Hooks;
+using SVCareers_Automation_Testing_Project.Model;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 using TechTalk.SpecFlow;
@@ -13,6 +15,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
     public class CreateJobRequestSteps
     {
         private IWebDriver webDriver;
+
+        public CreateJobRequestSteps()
+        {
+            ExcelLibrary.PopulateInCollection(ConfigurationManager.AppSettings["CreateJobRequestFilePath"]);
+        }
 
         [Given(@"Launch the web browser")]
         public void GivenLaunchTheWebBrowser()
@@ -32,11 +39,9 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             Thread.Sleep(2000);
             webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
-            IWebElement elUserName = webDriver.FindElement(By.Name("loginId"));
-            elUserName.SendKeys("Ashwini.Shashikiran");
+            webDriver.FindElement(By.Name("loginId")).SendKeys(ExcelLibrary.ReadData(1, "UserName"));
 
-            IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
-            elPassword.SendKeys("sv123");
+            webDriver.FindElement(By.Name("loginScreenPassword")).SendKeys(ExcelLibrary.ReadData(1, "Password"));
         }
         
         [Then(@"Click on Login submit button")]
@@ -73,7 +78,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenSelectTheOrganization()
         {
             SelectElement selectOrganization = new SelectElement(webDriver.FindElement(By.Name("organization")));
-            selectOrganization.SelectByIndex(1);
+            selectOrganization.SelectByText(ExcelLibrary.ReadData(1, "Organization"));
             Thread.Sleep(1000);
         }
 
@@ -81,46 +86,36 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenSelectTheJobLocation()
         {
             SelectElement selectJobLocation = new SelectElement(webDriver.FindElement(By.Name("location")));
-            selectJobLocation.SelectByIndex(3);
+            selectJobLocation.SelectByText(ExcelLibrary.ReadData(1, "JobLocation"));
             Thread.Sleep(1000);
         }
 
-        [Then(@"Click on add a new client")]
-        public void ThenClickOnAddANewClient()
+        [Then(@"Select client name")]
+        public void ThenSelectClientName()
         {
-            webDriver.FindElement(By.CssSelector("a[onclick*=newclient]")).Click();
+            if (ExcelLibrary.ReadData(1, "NewClient") != "")
+            {
+                webDriver.FindElement(By.CssSelector("a[onclick*=newclient]")).Click();
+                webDriver.FindElement(By.CssSelector("input[name=newClient]")).SendKeys(ExcelLibrary.ReadData(1, "NewClient"));
+            }
+            else
+            {
+                SelectElement selectClient = new SelectElement(webDriver.FindElement(By.Name("client")));
+                selectClient.SelectByText(ExcelLibrary.ReadData(1, "Client"));
+            }
         }
 
-        [Then(@"Add the new client name")]
-        public void ThenAddTheNewClientName()
-        {
-            webDriver.FindElement(By.CssSelector("input[name=newClient]")).SendKeys("SFGTest2");
-        }
-
-        [Then(@"Click on add a new project")]
-        public void ThenClickOnAddANewProject()
+        [Then(@"Select project name")]
+        public void ThenSelectProjectName()
         {
             if (webDriver.FindElements(By.CssSelector("a[onclick*=oldclient]")).Count > 0)
             {
-
+                webDriver.FindElement(By.CssSelector("input[name=projectTitleForNew]")).SendKeys(ExcelLibrary.ReadData(1, "NewProject"));
             }
             else if (webDriver.FindElements(By.CssSelector("a[onclick*=newproject]")).Count > 0)
             {
-                webDriver.FindElement(By.CssSelector("a[onclick*=newproject]")).Click();
-            }
-        }
-
-        [Then(@"Add the new project name")]
-        public void ThenAddTheNewProjectName()
-        {
-            if (webDriver.FindElements(By.CssSelector("input[name=projectTitleForNew]")).Count() > 0)
-            {
-                webDriver.FindElement(By.CssSelector("input[name=projectTitleForNew]")).SendKeys("SFGTest2");
-            }
-            else if(webDriver.FindElements(By.CssSelector("select[name=projectTitle]")).Count() > 0)
-            {
-                SelectElement selectProjectName = new SelectElement(webDriver.FindElement(By.Name("projectTitle")));
-                selectProjectName.SelectByIndex(1);
+                SelectElement selectProject = new SelectElement(webDriver.FindElement(By.Name("projectTitle")));
+                selectProject.SelectByText(ExcelLibrary.ReadData(1, "Project"));
             }
         }
 
@@ -128,26 +123,27 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenSelectTheTechnology()
         {
             SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
-            selectTechnology.SelectByIndex(1);
+            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
         }
 
         [Then(@"Select the Role")]
         public void ThenSelectTheRole()
         {
             SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("jobTitle")));
-            selectRole.SelectByIndex(1);
+            selectRole.SelectByText(ExcelLibrary.ReadData(1, "Role"));
         }
 
         [Then(@"Select the Job title")]
         public void ThenSelectTheJobTitle()
         {
             SelectElement selectJobTile = new SelectElement(webDriver.FindElement(By.Name("roleDesc")));
-            selectJobTile.SelectByIndex(1);
+            selectJobTile.SelectByText(ExcelLibrary.ReadData(1, "JobTitle"));
         }
 
         [Then(@"Search for Mandatory skills")]
         public void ThenSearchForMandatorySkills()
         {
+
             webDriver.FindElement(By.CssSelector("a[href*=reqSkills]")).Click();
         }
 
@@ -162,12 +158,19 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the Mandatory skills")]
         public void ThenSelectTheMandatorySkills()
         {
-            SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
-            selectMandatorySkills.SelectByIndex(1);
-            webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
-            selectMandatorySkills.SelectByIndex(2);
-            webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=skillDone]")).Click();
+            if(ExcelLibrary.ReadData(1, "MandatorySkills") != "")
+            {                
+                string[] mandatorySkills = ExcelLibrary.ReadData(1, "MandatorySkills").Split(new char[1] { ',' });
+                for (int i = 0; i < mandatorySkills.Length; i++)
+                {
+                    SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
+                    selectMandatorySkills.SelectByText(mandatorySkills[i]);
+                    webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
+                }
+
+                webDriver.FindElement(By.CssSelector("a[href*=skillDone]")).Click();
+            }
+            
         }
 
         [Then(@"Search for Nice to have skills")]
@@ -188,19 +191,25 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the Nice to have skills")]
         public void ThenSelectTheNiceToHaveSkills()
         {
-            SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
-            selectMandatorySkills.SelectByIndex(1);
-            webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
-            selectMandatorySkills.SelectByIndex(2);
-            webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=skillDone]")).Click();
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+            if (ExcelLibrary.ReadData(1, "NiceToHaveSkills") != "")
+            {
+                string[] niceToHaveSkills = ExcelLibrary.ReadData(1, "NiceToHaveSkills").Split(new char[1] { ',' });
+                for (int i = 0; i < niceToHaveSkills.Length; i++)
+                {
+                    SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
+                    selectMandatorySkills.SelectByText(niceToHaveSkills[i]);
+                    webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
+                }
+
+                webDriver.FindElement(By.CssSelector("a[href*=skillDone]")).Click();
+            }
         }
 
         [Then(@"Enter the number of resources required")]
         public void ThenEnterTheNumberOfResourcesRequired()
         {
-            webDriver.FindElement(By.CssSelector("input[name=noOfCandidatesNeeded]")).SendKeys("1");
+            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+            webDriver.FindElement(By.CssSelector("input[name=noOfCandidatesNeeded]")).SendKeys(ExcelLibrary.ReadData(1, "ResourcesRequired"));
         }
 
         [Then(@"Select the date by which the candidate is required")]
@@ -226,7 +235,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
             SelectElement selectBillableStatus = new SelectElement(webDriver.FindElement(By.Name("billabilityStatus")));
-            selectBillableStatus.SelectByIndex(1);
+            selectBillableStatus.SelectByText(ExcelLibrary.ReadData(1, "BillabilityStatus"));
         }
 
         [Then(@"Select the billedTypes")]
@@ -234,7 +243,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
             SelectElement selectBillableType = new SelectElement(webDriver.FindElement(By.Name("billedTypes")));
-            selectBillableType.SelectByIndex(1);
+            selectBillableType.SelectByText(ExcelLibrary.ReadData(1, "BillabilityType"));
         }
 
 
@@ -242,32 +251,32 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenSelectIfClientInterviewIsRequired()
         {
             SelectElement selectClientInterview = new SelectElement(webDriver.FindElement(By.Name("clientInterview")));
-            selectClientInterview.SelectByIndex(1);
+            selectClientInterview.SelectByText(ExcelLibrary.ReadData(1, "ClientInterview"));
         }
 
         [Then(@"Select the certainity")]
         public void ThenSelectTheCertainity()
         {
             SelectElement selectClientInterview = new SelectElement(webDriver.FindElement(By.Name("resCertainity")));
-            selectClientInterview.SelectByIndex(1);
+            selectClientInterview.SelectByText(ExcelLibrary.ReadData(1, "Certainity"));
         }
 
         [Then(@"Enter the max budget")]
         public void ThenEnterTheMaxBudget()
         {
-            webDriver.FindElement(By.CssSelector("input[name=jbRqstBudget]")).SendKeys("15");
+            webDriver.FindElement(By.CssSelector("input[name=jbRqstBudget]")).SendKeys(ExcelLibrary.ReadData(1, "BudgetUpto"));
         }
 
         [Then(@"Enter the job description")]
         public void ThenEnterTheJobDescription()
         {
-            webDriver.FindElement(By.CssSelector("textarea[name=comments]")).SendKeys("testing comments");
+            webDriver.FindElement(By.CssSelector("textarea[name=comments]")).SendKeys(ExcelLibrary.ReadData(1, "JobDescription"));
         }
 
         [Then(@"Enter the billing rate")]
         public void ThenEnterTheBillingRate()
         {
-            webDriver.FindElement(By.CssSelector("input[name=billingRate]")).SendKeys("400");
+            webDriver.FindElement(By.CssSelector("input[name=billingRate]")).SendKeys(ExcelLibrary.ReadData(1, "BillingRate"));
         }
 
         [Then(@"Select the billing start date")]
@@ -286,7 +295,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
             SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("reqTypeExp")));
-            selectMandatorySkills.SelectByIndex(1);
+            selectMandatorySkills.SelectByText(ExcelLibrary.ReadData(1, "RequirementType"));
         }
 
         [Then(@"Search for account manager")]
@@ -306,7 +315,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the account manager")]
         public void ThenSelectTheAccountManager()
         {
-            webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys("Aaron Ruppel");
+            webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "AccountManager"));
             webDriver.FindElement(By.CssSelector("a[href*=search]")).Click(); 
             webDriver.FindElement(By.CssSelector(".NewTableDataOdd input[type=checkbox]")).Click();
             webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
@@ -331,7 +340,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the reporting manager")]
         public void ThenSelectTheReportingManager()
         {
-            webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys("Aaron Ruppel");
+            webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "ReportingManager"));
             webDriver.FindElement(By.CssSelector("a[href*=search]")).Click();
             webDriver.FindElement(By.CssSelector(".NewTableDataOdd input[type=checkbox]")).Click();
             webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
@@ -342,19 +351,19 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         public void ThenEnterTheMinimumExperience()
         {
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.CssSelector("input[name=minExperience]")).SendKeys("4");
+            webDriver.FindElement(By.CssSelector("input[name=minExperience]")).SendKeys(ExcelLibrary.ReadData(1, "MinimumExperience"));
         }
 
         [Then(@"Enter the preferred experience")]
         public void ThenEnterThePreferredExperience()
         {
-            webDriver.FindElement(By.CssSelector("input[name=preExperience]")).SendKeys("4");
+            webDriver.FindElement(By.CssSelector("input[name=preExperience]")).SendKeys(ExcelLibrary.ReadData(1, "PreferredExperience"));
         }
 
         [Then(@"Enter the seat ID")]
         public void ThenEnterTheSeatID()
         {
-            webDriver.FindElement(By.CssSelector("input[name=seatIds]")).SendKeys("SD004");
+            webDriver.FindElement(By.CssSelector("input[name=seatIds]")).SendKeys(ExcelLibrary.ReadData(1, "SeatID"));
         }
 
         [Then(@"Search for any certifications")]
@@ -374,46 +383,52 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the required certification")]
         public void ThenSelectTheRequiredCertification()
         {
-            SelectElement selectCertifications = new SelectElement(webDriver.FindElement(By.Name("srcList")));
-            selectCertifications.SelectByIndex(1);
-            webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
-            selectCertifications.SelectByIndex(2);
-            webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=licenseDone]")).Click();
+            if (ExcelLibrary.ReadData(1, "Certifications") != "")
+            {
+                string[] niceToHaveSkills = ExcelLibrary.ReadData(1, "Certifications").Split(new char[1] { ',' });
+                for (int i = 0; i < niceToHaveSkills.Length; i++)
+                {
+                    SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
+                    selectMandatorySkills.SelectByText(niceToHaveSkills[i]);
+                    webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
+                }
+
+                webDriver.FindElement(By.CssSelector("a[href*=licenseDone]")).Click();
+            }
         }
 
         [Then(@"Enter the work location")]
         public void ThenEnterTheWorkLocation()
         {
             webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.CssSelector("input[name=wrkLocation]")).SendKeys("Mysuru");
+            webDriver.FindElement(By.CssSelector("input[name=wrkLocation]")).SendKeys(ExcelLibrary.ReadData(1, "WorkLocation"));
         }
 
         [Then(@"Enter the project duration")]
         public void ThenEnterTheProjectDuration()
         {
-            webDriver.FindElement(By.CssSelector("input[name=projectDuration]")).SendKeys("1 Year");
+            webDriver.FindElement(By.CssSelector("input[name=projectDuration]")).SendKeys(ExcelLibrary.ReadData(1, "ProjectDurationInMonths"));
         }
 
         [Then(@"Select will the resource lead a team Yes or No")]
         public void ThenSelectWillTheResourceLeadATeamYesOrNo()
         {
             SelectElement selectIsLead = new SelectElement(webDriver.FindElement(By.Name("directOffshoreTeam")));
-            selectIsLead.SelectByIndex(1);
+            selectIsLead.SelectByText(ExcelLibrary.ReadData(1, "WillResourceLeadATeam"));
         }
 
         [Then(@"Select will the resume be sent to client Yes or No")]
         public void ThenSelectWillTheResumeBeSentToClientYesOrNo()
         {
             SelectElement selectIsResumeSentToClient = new SelectElement(webDriver.FindElement(By.Name("resumeToClient")));
-            selectIsResumeSentToClient.SelectByIndex(1); 
+            selectIsResumeSentToClient.SelectByText(ExcelLibrary.ReadData(1, "WillResumeBeSubmittedToClient"));
         }
 
         [Then(@"Select system type")]
         public void ThenSelectSystemType()
         {
             SelectElement selectSystemType = new SelectElement(webDriver.FindElement(By.Name("systemType")));
-            selectSystemType.SelectByIndex(2);
+            selectSystemType.SelectByText(ExcelLibrary.ReadData(1, "SystemType"));
         }
 
         [Then(@"Select configurations")]
@@ -421,13 +436,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             Thread.Sleep(2000);
             SelectElement selectConfiguration = new SelectElement(webDriver.FindElement(By.Name("configuration")));
-            selectConfiguration.SelectByIndex(2);
+            selectConfiguration.SelectByText(ExcelLibrary.ReadData(1, "Configurations"));
         }
 
         [Then(@"Enter the comments if any for the job request")]
         public void ThenEnterTheCommentsIfAnyForTheJobRequest()
         {
-            webDriver.FindElement(By.CssSelector("textarea[name=addComments]")).SendKeys("My comments");
+            webDriver.FindElement(By.CssSelector("textarea[name=addComments]")).SendKeys(ExcelLibrary.ReadData(1, "Comments"));
         }
 
         [Then(@"Submit the job request form")]

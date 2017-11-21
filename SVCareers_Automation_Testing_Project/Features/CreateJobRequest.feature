@@ -14,10 +14,8 @@ Scenario: Create new job request
 	Then Switch the focus to the Create new Job Request form popup
 	Then Select the organization
 	Then Select the Job location
-	Then Click on add a new client
-	Then Add the new client name
-	Then Click on add a new project
-	Then Add the new project name
+	Then Select client name
+	Then Select project name
 	Then Select the technology
 	Then Select the Role
 	Then Select the Job title

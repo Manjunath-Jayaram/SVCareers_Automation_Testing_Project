@@ -16,7 +16,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
     {
         public ReferFriendSteps()
         {
-            ExcelLibrary.PopulateInCollection(ConfigurationManager.AppSettings["ReferAFriendFilePath"]);
+            ExcelLibrary.PopulateInCollection(ConfigurationManager.AppSettings["ReferFriendFilePath"]);
         }
 
         private IWebDriver webDriver;
