@@ -129,7 +129,12 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candHomePhone]")).SendKeys(ExcelLibrary.ReadData(1, "Phone"));
             try
             {
-               
+                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(0));
+                //wait.Until(ExpectedConditions.AlertIsPresent());
+                Thread.Sleep(5000);
+                IAlert alert = webDriver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                alert.Accept();
             }
             catch(Exception ex)
             {
@@ -140,24 +145,9 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the candidate type as experienced")]
         public void ThenSelectTheCandidateTypeAsExperienced()
         {
-            try
-            {
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-                wait.Until(ExpectedConditions.AlertIsPresent());
-                IAlert alert = HelperClass.Driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                alert.Accept();
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            finally
-            {
-                SelectElement selectCandidateType = new SelectElement(webDriver.FindElement(By.Name("candType")));
-                selectCandidateType.SelectByText(ExcelLibrary.ReadData(1, "CandidateType"));
-                Thread.Sleep(1000);
-            }
+            SelectElement selectCandidateType = new SelectElement(webDriver.FindElement(By.Name("candType")));
+            selectCandidateType.SelectByText(ExcelLibrary.ReadData(1, "CandidateType"));
+            Thread.Sleep(1000);
         }
         
         [Then(@"Enter the candidate experience")]
@@ -199,15 +189,15 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] a[title=Submit]")).Click();
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.AlertIsPresent());
-            IAlert alert = HelperClass.Driver.SwitchTo().Alert();
+            IAlert alert = webDriver.SwitchTo().Alert();
             alert.Accept();
         }
         
         [Then(@"Select the candidate type as fresher")]
         public void ThenSelectTheCandidateTypeAsFresher()
         {
-            SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
-            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
+            SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("candType")));
+            selectTechnology.SelectByText(ExcelLibrary.ReadData(2, "CandidateType"));
         }
 
         [Then(@"Filter the job requests on selecting the respective country")]

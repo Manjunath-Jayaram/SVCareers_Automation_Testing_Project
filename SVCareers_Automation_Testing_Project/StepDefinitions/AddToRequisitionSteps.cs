@@ -40,8 +40,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             Thread.Sleep(2000);
             webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
-            IWebElement elUserName = webDriver.FindElement(By.Name("loginId"));
-            elUserName.SendKeys(ExcelLibrary.ReadData(1, "UserName"));
+            webDriver.FindElement(By.Name("loginId")).SendKeys(ExcelLibrary.ReadData(1, "UserName"));
 
             IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
             elPassword.SendKeys(ExcelLibrary.ReadData(1, "Password"));
@@ -314,7 +313,5 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             webDriver.FindElement(By.CssSelector("a[href*=unpost]")).Click();
             SpecHooks.extentTest.Pass("Job request which need to be added to requisition has been saved and not posted.");
         }
-        
-
     }
 }
