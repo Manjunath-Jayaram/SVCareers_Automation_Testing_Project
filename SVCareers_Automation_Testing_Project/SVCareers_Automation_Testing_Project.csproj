@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\AddToRequisition.xlsx" />
     <None Include="Data\CreateJobRequest.xlsx" />
     <None Include="Data\JobRequestReport.xlsx" />
     <None Include="Data\ReferFriend.xlsx" />
