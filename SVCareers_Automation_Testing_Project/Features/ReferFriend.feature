@@ -43,6 +43,27 @@ Scenario: Refer a fresher
 	Then Enter the comments
 	Then Submit the referal form
 
+@Refer a candidate who has already been referred
+Scenario: Refer a candidate who has already been referred
+	Given Launch the browser
+	Given Open SVCareers websites
+	And Type your username and password in the login form
+	Then Click on Login form submit button
+	Then Select the job you want to refer from the grid
+	Then Click on refer a friend link
+	Given Switch the focus to the candidate details form popup
+	Then Enter candidate firstname
+	Then Enter candidate middlename
+	Then Enter candidate lastname
+	Then Select the gender
+	Then Enter the candidate email address
+	Then Enter the candidate phone number
+	Then Select the candidate type as fresher
+	Then Upload the resume of the candidate
+	Then Enter the comments
+	Then Submit the referal form
+	Then Click on ok from the alert
+
 @Filter the job requests
 Scenario: Filter the job requests based on country selection and keyword search
 	Given Launch the browser

@@ -64,31 +64,54 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the job request with external resource flag set to one and requesition status is not posted")]
         public void ThenSelectTheJobRequestWithExternalResourceFlagSetToOneAndRequesitionStatusIsNotPosted()
         {
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
-            IWebElement iframeJobRequests = webDriver.FindElement(By.Id("frmJbRqst"));
-            webDriver.SwitchTo().Frame(iframeJobRequests);
-
-            IWebElement jobRequestsTable = webDriver.FindElement(By.CssSelector("table.greenborder"));
-            IList<IWebElement> tableRow = jobRequestsTable.FindElements(By.TagName("tr"));
-            IList<IWebElement> rowTD;
-            int index = -1;
-            foreach (IWebElement row in tableRow)
+            int isJobReqSelected = 0;
+            do
             {
-                index = index + 1;
-                if(index > 1)
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
+                IWebElement iframeJobRequests = webDriver.FindElement(By.Id("frmJbRqst"));
+                webDriver.SwitchTo().Frame(iframeJobRequests);
+
+                IWebElement jobRequestsTable = webDriver.FindElement(By.CssSelector("table.greenborder"));
+                IList<IWebElement> tableRow = jobRequestsTable.FindElements(By.TagName("tr"));
+                IList<IWebElement> rowTD;
+                int index = -1;
+
+                foreach (IWebElement row in tableRow)
                 {
-                    rowTD = row.FindElements(By.TagName("td"));
-                    if (rowTD.Count > 22)
+                    index = index + 1;
+                    if (index > 1)
                     {
-                        if (rowTD[12].Text.Equals("1") && (!rowTD[1].Text.ToLower().Contains("posted")))
+                        rowTD = row.FindElements(By.TagName("td"));
+                        if (rowTD.Count > 22)
                         {
-                            rowTD[0].Click();
-                            break;
+                            if (rowTD[12].Text.Equals("1") && (!rowTD[1].Text.ToLower().Contains("posted")))
+                            {
+                                rowTD[0].Click();
+                                isJobReqSelected = 1;
+                                break;
+                            }
                         }
                     }
                 }
-            }
+
+                if(webDriver.FindElements(By.CssSelector("a[href*=next]")).Count > 0 && isJobReqSelected == 0)
+                {
+                    webDriver.FindElement(By.CssSelector("a[href*=next]")).Click();
+                }
+                else if(isJobReqSelected == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    isJobReqSelected = 1;
+                    SpecHooks.extentTest.Warning("There are no job requests available to create the requisition");
+                    break;
+                }
+
+            } while (isJobReqSelected == 0);
+
         }
 
         [Then(@"Click on add to requisition link")]

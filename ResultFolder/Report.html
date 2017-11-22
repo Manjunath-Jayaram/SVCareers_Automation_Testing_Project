@@ -43,7 +43,7 @@
         <ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 
             <a>
-                <span class='suite-start-time label blue darken-3'>11/22/2017 8:17:10 AM India Standard Time</span>
+                <span class='suite-start-time label blue darken-3'>11/22/2017 11:25:23 AM India Standard Time</span>
             </a>
             <a>
                 <span class="label blue darken-3">v3.0.2</span>
@@ -123,14 +123,28 @@
                     <canvas id='parent-analysis' width='100' height='80'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span><span class='strong'>1</span> test(s) passed</span>
+                    <span><span class='strong'>7</span> test(s) passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong'>0</span> test(s) failed, <span class='strong'>0</span> others
+                    <span class='strong'>0</span> test(s) failed, <span class='strong'>5</span> others
                 </div>
             </div>
         </div>
 
+            <div class='col s12 m6 l6 np-h'>
+                <div class='card-panel nm-v'>
+                    <div class='left panel-name'>Steps</div>
+                    <div class='chart-box'>
+                        <canvas id='child-analysis' width='100' height='80'></canvas>
+                    </div>
+                    <div class='block text-small'>
+                        <span><span class='strong'>5</span> step(s) passed</span>
+                    </div>
+                    <div class='block text-small'>
+                        <span class='strong'>0</span> step(s) failed, <span class='strong'>5</span> others
+                    </div>
+                </div>
+            </div>
 
     </div>
 </div>
@@ -144,16 +158,361 @@
 
                     <li class='test displayed active  pass' status='pass' test-id='1'>
                         <div class='test-heading'>
-                            <span class='test-name'>Refer an experience candidate</span>
-                            <span class='test-time'>11/22/2017 8:17:10 AM</span>
+                            <span class='test-name'>Add the job request to requisition</span>
+                            <span class='test-time'>11/22/2017 11:25:23 AM</span>
                             <span class='test-status right pass'>Pass</span>
                         </div>
                         <div class='test-content hide'>
                                 <div class='test-time-info'>
-                                    <span class='label start-time'>11/22/2017 8:17:10 AM</span>
-                                    <span class='label end-time'>11/22/2017 8:17:10 AM</span>
+                                    <span class='label start-time'>11/22/2017 11:25:23 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:26:16 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:52.9910000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='pass'>
+                                                        <td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:26:16 AM</td>
+                                                        <td class='step-details'>Job request has been added to requisition successfully.</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  pass' status='pass' test-id='2'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Save the requisition job request without posting it</span>
+                            <span class='test-time'>11/22/2017 11:26:21 AM</span>
+                            <span class='test-status right pass'>Pass</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:26:21 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:27:14 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:53.0620000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='pass'>
+                                                        <td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:27:14 AM</td>
+                                                        <td class='step-details'>Job request which need to be added to requisition has been saved and not posted.</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  warning' status='warning' test-id='3'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Create new job request</span>
+                            <span class='test-time'>11/22/2017 11:27:15 AM</span>
+                            <span class='test-status right warning'>Warning</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:27:15 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:27:33 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:18.2270000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='warning'>
+                                                        <td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:27:33 AM</td>
+                                                        <td class='step-details'>User is not authorized to create a new job request</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  pass' status='pass' test-id='4'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Get all action required job request report on excel with all filters</span>
+                            <span class='test-time'>11/22/2017 11:28:20 AM</span>
+                            <span class='test-status right pass'>Pass</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:28:20 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:28:50 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:30.2350000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='pass'>
+                                                        <td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:28:50 AM</td>
+                                                        <td class='step-details'>Export of all the job requests was successful</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  pass' status='pass' test-id='5'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Get all external hiring job request report on excel with all filters</span>
+                            <span class='test-time'>11/22/2017 11:28:50 AM</span>
+                            <span class='test-status right pass'>Pass</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:28:50 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:29:22 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:31.4990000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='pass'>
+                                                        <td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:29:22 AM</td>
+                                                        <td class='step-details'>Export of all the job requests was successful</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  pass' status='pass' test-id='6'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Get all job request report on excel with all filters</span>
+                            <span class='test-time'>11/22/2017 11:29:22 AM</span>
+                            <span class='test-status right pass'>Pass</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:29:22 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:29:54 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:32.4730000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='pass'>
+                                                        <td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:29:54 AM</td>
+                                                        <td class='step-details'>Export of all the job requests was successful</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  pass' status='pass' test-id='7'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Clear all the job requests filter</span>
+                            <span class='test-time'>11/22/2017 11:29:54 AM</span>
+                            <span class='test-status right pass'>Pass</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:29:54 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:29:54 AM</span>
                                     <span class='label time-taken grey lighten-1 white-text'>00:00:00</span>
                                 </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  pass' status='pass' test-id='8'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Filter the job requests based on country selection and keyword search</span>
+                            <span class='test-time'>11/22/2017 11:30:12 AM</span>
+                            <span class='test-status right pass'>Pass</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:30:12 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:30:12 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:00</span>
+                                </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  warning' status='warning' test-id='9'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Pagination validation</span>
+                            <span class='test-time'>11/22/2017 11:30:30 AM</span>
+                            <span class='test-status right warning'>Warning</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:30:30 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:30:48 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:18.1810000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='warning'>
+                                                        <td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:30:48 AM</td>
+                                                        <td class='step-details'>No job requests found</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  warning' status='warning' test-id='10'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Refer a candidate who has already been referred</span>
+                            <span class='test-time'>11/22/2017 11:30:48 AM</span>
+                            <span class='test-status right warning'>Warning</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:30:48 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:31:06 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:18.1080000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='warning'>
+                                                        <td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:31:06 AM</td>
+                                                        <td class='step-details'>No job requests found</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  warning' status='warning' test-id='11'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Refer a fresher</span>
+                            <span class='test-time'>11/22/2017 11:31:06 AM</span>
+                            <span class='test-status right warning'>Warning</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:31:06 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:31:24 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:17.9080000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='warning'>
+                                                        <td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:31:24 AM</td>
+                                                        <td class='step-details'>No job requests found</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </li>
+                    <li class='test displayed active  warning' status='warning' test-id='12'>
+                        <div class='test-heading'>
+                            <span class='test-name'>Refer an experience candidate</span>
+                            <span class='test-time'>11/22/2017 11:31:24 AM</span>
+                            <span class='test-status right warning'>Warning</span>
+                        </div>
+                        <div class='test-content hide'>
+                                <div class='test-time-info'>
+                                    <span class='label start-time'>11/22/2017 11:31:24 AM</span>
+                                    <span class='label end-time'>11/22/2017 11:31:43 AM</span>
+                                    <span class='label time-taken grey lighten-1 white-text'>00:00:19.3810000</span>
+                                </div>
+                                    <div class='test-steps'>
+                                        <table class='bordered table-results'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class='log' status='warning'>
+                                                        <td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+                                                        <td class='timestamp'>11/22/2017 11:31:43 AM</td>
+                                                        <td class='step-details'>No job requests found</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
                         </div>
                     </li>
@@ -231,30 +590,30 @@
         <div class='row'>
             <div class='col s2'>
                 <div class='card-panel r'>
- <span>Tests</span>                     <div class='panel-lead'>1</div>
+ <span>Tests</span>                     <div class='panel-lead'>12</div>
                 </div>
             </div>
             <div class='col s2'>
                 <div class='card-panel r'>
- <span>Steps</span>                     <div class='panel-lead'>0</div>
+ <span>Steps</span>                     <div class='panel-lead'>10</div>
                 </div>
             </div>
             <div class='col s2'>
                 <div class='card-panel r'>
                     Start
-                    <div class='panel-lead'>11/22/2017 8:17:10 AM</div>
+                    <div class='panel-lead'>11/22/2017 11:25:23 AM</div>
                 </div>
             </div>
             <div class='col s2'>
                 <div class='card-panel r'>
                     End
-                    <div class='panel-lead'>11/22/2017 8:17:48 AM</div>
+                    <div class='panel-lead'>11/22/2017 11:31:43 AM</div>
                 </div>
             </div>
             <div class='col s2'>
                 <div class='card-panel r'>
                     Time Taken
-                    <div class='panel-lead'>00:00:38.5838580</div>
+                    <div class='panel-lead'>00:06:20.2670000</div>
                 </div>
             </div>
 
@@ -273,18 +632,18 @@
 
 		<script>
 			var statusGroup = {
-			    passParent: 1,
+			    passParent: 7,
 			    failParent: 0,
 			    fatalParent: 0,
 			    errorParent: 0,
-			    warningParent: 0,
+			    warningParent: 5,
 			    skipParent: 0,
 				
-			    passChild: 0,
+			    passChild: 5,
 			    failChild: 0,
 			    fatalChild: 0,
 			    errorChild: 0,
-			    warningChild: 0,
+			    warningChild: 5,
 			    skipChild: 0,
 			    infoChild: 0,
 				

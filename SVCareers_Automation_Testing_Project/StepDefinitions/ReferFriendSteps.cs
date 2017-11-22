@@ -24,8 +24,15 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Given(@"Launch the browser")]
         public void GivenLaunchTheBrowser()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Manage().Window.Maximize();
+            try
+            {
+                webDriver = new ChromeDriver();
+                webDriver.Manage().Window.Maximize();
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Given(@"Open SVCareers websites")]
@@ -37,90 +44,182 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Given(@"Type your username and password in the login form")]
         public void GivenTypeYourUsernameAndPasswordInTheLoginForm()
         {
-            Thread.Sleep(2000);
-            webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
-            IWebElement elUserName = webDriver.FindElement(By.Name("loginId"));
-            elUserName.SendKeys(ExcelLibrary.ReadData(1, "UserName"));
+            try
+            {
+                Thread.Sleep(2000);
+                webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
+                IWebElement elUserName = webDriver.FindElement(By.Name("loginId"));
+                elUserName.SendKeys(ExcelLibrary.ReadData(1, "UserName"));
 
-            IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
-            elPassword.SendKeys(ExcelLibrary.ReadData(1, "Password"));
+                IWebElement elPassword = webDriver.FindElement(By.Name("loginScreenPassword"));
+                elPassword.SendKeys(ExcelLibrary.ReadData(1, "Password"));
+
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Click on Login form submit button")]
         public void ThenClickOnLoginFormSubmitButton()
         {
-            IWebElement elLoginBtn = webDriver.FindElement(By.Id("svCareersLoginId"));
-            elLoginBtn.Click();
+            try
+            {
+                IWebElement elLoginBtn = webDriver.FindElement(By.Id("svCareersLoginId"));
+                elLoginBtn.Click();
+
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
 
         [Then(@"Select the job you want to refer from the grid")]
         public void ThenSelectTheJobYouWantToReferFromTheGrid()
         {
-            if (webDriver.FindElements(By.CssSelector("#ShowDesc")).Count > 0)
+            try
             {
-                IWebElement elJobRequest = webDriver.FindElement(By.CssSelector("#ShowDesc table tbody tr:nth-child(3) input[type=checkbox]"));
-                elJobRequest.Click();
-                Thread.Sleep(2000);
+                if (webDriver.FindElements(By.CssSelector("#ShowDesc")).Count > 0)
+                {
+                    IWebElement elJobRequest = webDriver.FindElement(By.CssSelector("#ShowDesc table tbody tr:nth-child(3) input[type=checkbox]"));
+                    elJobRequest.Click();
+                    Thread.Sleep(2000);
+
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
+                else
+                {
+                    SpecHooks.extentTest.Debug("No job requests found");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                SpecHooks.extentTest.Warning("No job requests found");
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
             }
         }
 
         [Then(@"Click on refer a friend link")]
         public void ThenClickOnReferAFriendLink()
         {
-            IWebElement elReferFrd = webDriver.FindElement(By.CssSelector("#rowForReferAFriendToJob a"));
-            elReferFrd.Click();
+            try
+            {
+                IWebElement elReferFrd = webDriver.FindElement(By.CssSelector("#rowForReferAFriendToJob a"));
+                elReferFrd.Click();
+
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Given(@"Switch the focus to the candidate details form popup")]
         public void GivenSwitchTheFocusToTheCandidateDetailsFormPopup()
         {
-            Thread.Sleep(2000);
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            Thread.Sleep(2000);
+            try
+            {
+                Thread.Sleep(2000);
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                Thread.Sleep(2000);
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [When(@"Switch the focus to the candidate details form popup")]
         public void WhenSwitchTheFocusToTheCandidateDetailsFormPopup()
         {
-            Thread.Sleep(2000);
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            Thread.Sleep(2000);
+            try
+            {
+                Thread.Sleep(2000);
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                Thread.Sleep(2000);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
 
         [Then(@"Enter candidate firstname")]
         public void ThenEnterCandidateFirstname()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candFirstName]")).SendKeys(ExcelLibrary.ReadData(1, "FirstName"));
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candFirstName]")).SendKeys(ExcelLibrary.ReadData(1, "FirstName"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Enter candidate middlename")]
         public void ThenEnterCandidateMiddlename()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candMiddleName]")).SendKeys(ExcelLibrary.ReadData(1, "MiddleName"));
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candMiddleName]")).SendKeys(ExcelLibrary.ReadData(1, "MiddleName"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Enter candidate lastname")]
         public void ThenEnterCandidateLastname()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candLastName]")).SendKeys(ExcelLibrary.ReadData(1, "LastName"));
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candLastName]")).SendKeys(ExcelLibrary.ReadData(1, "LastName"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Select the gender")]
         public void ThenSelectTheGender()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input#"+ ExcelLibrary.ReadData(1, "Gender"))).Click();
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input#" + ExcelLibrary.ReadData(1, "Gender"))).Click();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch (Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Enter the candidate email address")]
         public void ThenEnterTheCandidateEmailAddress()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys(ExcelLibrary.ReadData(1, "Email"));
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys(ExcelLibrary.ReadData(1, "Email"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Enter the candidate phone number")]
@@ -129,134 +228,374 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candHomePhone]")).SendKeys(ExcelLibrary.ReadData(1, "Phone"));
             try
             {
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(0));
-                //wait.Until(ExpectedConditions.AlertIsPresent());
-                Thread.Sleep(5000);
-                IAlert alert = webDriver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                alert.Accept();
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
             }
             catch(Exception ex)
             {
-                return;
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
             }
         }
         
         [Then(@"Select the candidate type as experienced")]
         public void ThenSelectTheCandidateTypeAsExperienced()
         {
-            SelectElement selectCandidateType = new SelectElement(webDriver.FindElement(By.Name("candType")));
-            selectCandidateType.SelectByText(ExcelLibrary.ReadData(1, "CandidateType"));
-            Thread.Sleep(1000);
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    SelectElement selectCandidateType = new SelectElement(webDriver.FindElement(By.Name("candType")));
+                    selectCandidateType.SelectByText(ExcelLibrary.ReadData(1, "CandidateType"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                    Thread.Sleep(1000);
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Enter the candidate experience")]
         public void ThenEnterTheCandidateExperience()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=minExperience]")).SendKeys(ExcelLibrary.ReadData(1, "ExperienceInYrs"));
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                    webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=minExperience]")).SendKeys(ExcelLibrary.ReadData(1, "ExperienceInYrs"));
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Select the candidates expertise technology")]
         public void ThenSelectTheCandidatesExpertiseTechnology()
         {
-            SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
-            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
+                    selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Enter the notice period")]
         public void ThenEnterTheNoticePeriod()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=noticePeriod]")).SendKeys(ExcelLibrary.ReadData(1, "NoticePeriodInDays"));
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=noticePeriod]")).SendKeys(ExcelLibrary.ReadData(1, "NoticePeriodInDays"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Upload the resume of the candidate")]
         public void ThenUploadTheResumeOfTheCandidate()
         {
-            IWebElement fileUpload = webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[type=file]"));
-            fileUpload.SendKeys(ExcelLibrary.ReadData(1, "Resume"));
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    IWebElement fileUpload = webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[type=file]"));
+                    fileUpload.SendKeys(ExcelLibrary.ReadData(1, "Resume"));
+                    if (!ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".pdf") || !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".rtl") || !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".txt") || !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".doc"))
+                    {
+                        SpecHooks.extentTest.Pass("Resume uploaded is not in .doc or .pdf or .rtl, .txt formats");
+                    }
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Enter the comments")]
         public void ThenEnterTheComments()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] textarea[name=comments]")).SendKeys(ExcelLibrary.ReadData(1, "Comments"));
-            Thread.Sleep(2000);
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] textarea[name=comments]")).SendKeys(ExcelLibrary.ReadData(1, "Comments"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                    Thread.Sleep(2000);
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Submit the referal form")]
         public void ThenSubmitTheReferalForm()
         {
-            webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] a[title=Submit]")).Click();
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.AlertIsPresent());
-            IAlert alert = webDriver.SwitchTo().Alert();
-            alert.Accept();
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] a[title=Submit]")).Click();
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                    WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
+                    wait.Until(ExpectedConditions.AlertIsPresent());
+                    IAlert alert = webDriver.SwitchTo().Alert();
+                    alert.Accept();
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
         
         [Then(@"Select the candidate type as fresher")]
         public void ThenSelectTheCandidateTypeAsFresher()
         {
-            SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("candType")));
-            selectTechnology.SelectByText(ExcelLibrary.ReadData(2, "CandidateType"));
+            try
+            {
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    Thread.Sleep(2000);
+                    webDriver.Close();
+                }
+                else
+                {
+                    SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("candType")));
+                    selectTechnology.SelectByText(ExcelLibrary.ReadData(2, "CandidateType"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Filter the job requests on selecting the respective country")]
         public void ThenFilterTheJobRequestsOnSelectingTheRespectiveCountry()
         {
-            SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("selCountry")));
-            selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Country"));
+            try
+            {
+                SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("selCountry")));
+                selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Country"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Filter the job requests on keyword search")]
         public void ThenFilterTheJobRequestsOnKeywordSearch()
         {
-            webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] input[name=keyword]")).SendKeys(ExcelLibrary.ReadData(1, "SearchKeyword"));
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] input[name=keyword]")).SendKeys(ExcelLibrary.ReadData(1, "SearchKeyword"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Click on search button based on filter selection")]
         public void ThenClickOnSearchButtonBasedOnFilterSelection()
         {
-            webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] a[title=search]")).Click();
+            try
+            {
+                webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] a[title=search]")).Click();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Click on clear all filter button")]
         public void ThenClickOnClearAllFilterButton()
         {
-            Thread.Sleep(2000);
-            webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] a[title*=Clear]")).Click();
+            try
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("form[name=searchJobsForm] a[title*=Clear]")).Click();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Check if the pagination exists")]
         public void ThenCheckIfThePaginationExists()
         {
-            if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count == 0)
+            try
             {
-                SpecHooks.extentTest.Warning("No job requests found");
+                if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count == 0)
+                {
+                    SpecHooks.extentTest.Pass("No job requests found");
+                }
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
             }
         }
 
         [Then(@"Check if the next button click is working")]
         public void ThenCheckIfTheNextButtonClickIsWorking()
         {
-            webDriver.FindElement(By.CssSelector("a[title*=Next]")).Click();
+            try
+            {
+                if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count > 0)
+                {
+                    webDriver.FindElement(By.CssSelector("a[title*=Next]")).Click();
+                }
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Check if the previous button click is working")]
         public void ThenCheckIfThePreviousButtonClickIsWorking()
         {
-            webDriver.FindElement(By.CssSelector("a[title*=Previous]")).Click();
+            try
+            {
+                if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count > 0)
+                {
+                    webDriver.FindElement(By.CssSelector("a[title*=Previous]")).Click();
+                }
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Check if the last button click is working")]
         public void ThenCheckIfTheLastButtonClickIsWorking()
         {
-            webDriver.FindElement(By.CssSelector("a[title*=Last]")).Click();
+            try
+            {
+                if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count > 0)
+                {
+                    webDriver.FindElement(By.CssSelector("a[title*=Last]")).Click();
+                }
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
 
         [Then(@"Check if the first button click is working")]
         public void ThenCheckIfTheFirstButtonClickIsWorking()
         {
-            webDriver.FindElement(By.CssSelector("a[title*=First]")).Click();
+            try
+            {
+                if (webDriver.FindElements(By.CssSelector("input[name=pagenum]")).Count > 0)
+                {
+                    webDriver.FindElement(By.CssSelector("a[title*=First]")).Click();
+                }
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
         }
+
+        [Then(@"Click on ok from the alert")]
+        public void ThenClickOnOkFromTheAlert()
+        {
+            try
+            {
+                Thread.Sleep(3000);
+                IAlert alert = webDriver.SwitchTo().Alert();
+                alert.Accept();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
+            catch(Exception ex)
+            {
+                SpecHooks.extentTest.Fail(ScenarioContext.Current.StepContext.StepInfo.Text + " " + ex.Message);
+            }
+        }
+
     }
 }

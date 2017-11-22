@@ -40,7 +40,6 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             Thread.Sleep(2000);
             webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
             webDriver.FindElement(By.Name("loginId")).SendKeys(ExcelLibrary.ReadData(1, "UserName"));
-
             webDriver.FindElement(By.Name("loginScreenPassword")).SendKeys(ExcelLibrary.ReadData(1, "Password"));
         }
         
@@ -222,7 +221,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
                 selectMonth.SelectByIndex(11);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                webDriver.FindElement(By.CssSelector("a[href*=changeDay]")).Click();
+                webDriver.FindElement(By.CssSelector("a[href*=1]")).Click();
             }
             catch(Exception ex)
             {
