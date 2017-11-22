@@ -28,6 +28,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 webDriver = new ChromeDriver();
                 webDriver.Manage().Window.Maximize();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
             catch(Exception ex)
             {
@@ -233,6 +234,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
             }
             catch(Exception ex)
@@ -251,6 +257,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -276,6 +287,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -299,6 +315,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -323,6 +344,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -346,6 +372,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -374,6 +405,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -398,6 +434,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
                 else
                 {
@@ -407,6 +448,11 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     wait.Until(ExpectedConditions.AlertIsPresent());
                     IAlert alert = webDriver.SwitchTo().Alert();
                     alert.Accept();
+
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 }
             }
             catch(Exception ex)
