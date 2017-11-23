@@ -40,7 +40,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                webDriver.Navigate().GoToUrl("http://spicareers-uat/spicareers/");
+                webDriver.Navigate().GoToUrl(ConfigurationManager.AppSettings["SVCareersURL"].ToString());
                 webDriver.Manage().Window.Maximize();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -75,6 +75,17 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 IWebElement elLoginBtn = webDriver.FindElement(By.Id("svCareersLoginId"));
                 elLoginBtn.Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+
+                if (webDriver.FindElements(By.ClassName("Mandatory")).Count > 0)
+                {
+                    if (webDriver.FindElement(By.ClassName("Mandatory")).Text != "")
+                    {
+                        SpecHooks.extentTest.Fail("Invalid username or password");
+                        Thread.Sleep(5000);
+                        webDriver.Close();
+                        webDriver.Quit();
+                    }
+                }
             }
             catch(Exception ex)
             {
@@ -87,10 +98,12 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                if (webDriver.FindElements(By.CssSelector("#ShowDesc")).Count == 0)
+                Thread.Sleep(2000);
+                if (webDriver.FindElements(By.CssSelector("a[href*=createJbRqst]")).Count == 0)
                 {
-                    SpecHooks.extentTest.Pass("User is not authorized to create a new job request");
+                    SpecHooks.extentTest.Fail("User is not authorized to create a new job request");
                 }
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
             catch(Exception ex)
             {
@@ -103,8 +116,9 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=createJbRqst]")).Click();
-                SpecHooks.extentTest.Pass("User is not authorized to create a new job request");
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
             catch(Exception ex)
             {
@@ -133,10 +147,15 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                SelectElement selectOrganization = new SelectElement(webDriver.FindElement(By.Name("organization")));
-                selectOrganization.SelectByText(ExcelLibrary.ReadData(1, "Organization"));
-                Thread.Sleep(1000);
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                
+                if (ExcelLibrary.ReadData(1, "Organization") != "")
+                {
+                    Thread.Sleep(2000);
+                    SelectElement selectOrganization = new SelectElement(webDriver.FindElement(By.Name("organization")));
+                    selectOrganization.SelectByText(ExcelLibrary.ReadData(1, "Organization"));
+                    Thread.Sleep(1000);
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -149,10 +168,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                SelectElement selectJobLocation = new SelectElement(webDriver.FindElement(By.Name("location")));
-                selectJobLocation.SelectByText(ExcelLibrary.ReadData(1, "JobLocation"));
-                Thread.Sleep(1000);
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                if (ExcelLibrary.ReadData(1, "JobLocation") != "") {
+                    Thread.Sleep(2000);
+                    SelectElement selectJobLocation = new SelectElement(webDriver.FindElement(By.Name("location")));
+                    selectJobLocation.SelectByText(ExcelLibrary.ReadData(1, "JobLocation"));
+                    Thread.Sleep(2000);
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -167,14 +189,24 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExcelLibrary.ReadData(1, "NewClient") != "")
                 {
-                    webDriver.FindElement(By.CssSelector("a[onclick*=newclient]")).Click();
-                    webDriver.FindElement(By.CssSelector("input[name=newClient]")).SendKeys(ExcelLibrary.ReadData(1, "NewClient"));
+                    Thread.Sleep(2000);
+                    if (ExcelLibrary.ReadData(1, "NewClient") != "")
+                    {
+                        webDriver.FindElement(By.CssSelector("a[onclick*=newclient]")).Click();
+                        webDriver.FindElement(By.CssSelector("input[name=newClient]")).SendKeys(ExcelLibrary.ReadData(1, "NewClient"));
+                    }
+
                 }
                 else
                 {
-                    SelectElement selectClient = new SelectElement(webDriver.FindElement(By.Name("client")));
-                    selectClient.SelectByText(ExcelLibrary.ReadData(1, "Client"));
+                    Thread.Sleep(2000);
+                    if (ExcelLibrary.ReadData(1, "Client") != "")
+                    {
+                        SelectElement selectClient = new SelectElement(webDriver.FindElement(By.Name("client")));
+                        selectClient.SelectByText(ExcelLibrary.ReadData(1, "Client"));
+                    }
                 }
+
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
             catch(Exception ex)
@@ -188,14 +220,19 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 if (webDriver.FindElements(By.CssSelector("a[onclick*=oldclient]")).Count > 0)
                 {
+                    if(ExcelLibrary.ReadData(1, "NewProject") != "")
                     webDriver.FindElement(By.CssSelector("input[name=projectTitleForNew]")).SendKeys(ExcelLibrary.ReadData(1, "NewProject"));
                 }
                 else if (webDriver.FindElements(By.CssSelector("a[onclick*=newproject]")).Count > 0)
                 {
-                    SelectElement selectProject = new SelectElement(webDriver.FindElement(By.Name("projectTitle")));
-                    selectProject.SelectByText(ExcelLibrary.ReadData(1, "Project"));
+                    if (ExcelLibrary.ReadData(1, "Project") != "")
+                    {
+                        SelectElement selectProject = new SelectElement(webDriver.FindElement(By.Name("projectTitle")));
+                        selectProject.SelectByText(ExcelLibrary.ReadData(1, "Project"));
+                    }
                 }
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -210,9 +247,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
-                selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                Thread.Sleep(2000);
+                if (ExcelLibrary.ReadData(1, "Technology") != "")
+                {
+                    SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("technology")));
+                    selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "Technology"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch (Exception ex)
             {
@@ -225,9 +266,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("jobTitle")));
-                selectRole.SelectByText(ExcelLibrary.ReadData(1, "Role"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                Thread.Sleep(2000);
+                if (ExcelLibrary.ReadData(1, "Role") != "")
+                {
+                    SelectElement selectRole = new SelectElement(webDriver.FindElement(By.Name("jobTitle")));
+                    selectRole.SelectByText(ExcelLibrary.ReadData(1, "Role"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -240,9 +285,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                SelectElement selectJobTile = new SelectElement(webDriver.FindElement(By.Name("roleDesc")));
-                selectJobTile.SelectByText(ExcelLibrary.ReadData(1, "JobTitle"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                Thread.Sleep(2000);
+                if (ExcelLibrary.ReadData(1, "JobTitle") != "")
+                {
+                    SelectElement selectJobTile = new SelectElement(webDriver.FindElement(By.Name("roleDesc")));
+                    selectJobTile.SelectByText(ExcelLibrary.ReadData(1, "JobTitle"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -255,7 +304,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=reqSkills]")).Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -291,6 +340,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     string[] mandatorySkills = ExcelLibrary.ReadData(1, "MandatorySkills").Split(new char[1] { ',' });
                     for (int i = 0; i < mandatorySkills.Length; i++)
                     {
+                        Thread.Sleep(2000);
                         SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
                         selectMandatorySkills.SelectByText(mandatorySkills[i]);
                         webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
@@ -312,6 +362,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                 webDriver.FindElement(By.CssSelector("a[href*=prefSkills]")).Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
@@ -348,6 +399,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     string[] niceToHaveSkills = ExcelLibrary.ReadData(1, "NiceToHaveSkills").Split(new char[1] { ',' });
                     for (int i = 0; i < niceToHaveSkills.Length; i++)
                     {
+                        Thread.Sleep(2000);
                         SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("srcList")));
                         selectMandatorySkills.SelectByText(niceToHaveSkills[i]);
                         webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
@@ -368,9 +420,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                webDriver.FindElement(By.CssSelector("input[name=noOfCandidatesNeeded]")).SendKeys(ExcelLibrary.ReadData(1, "ResourcesRequired"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                if (ExcelLibrary.ReadData(1, "ResourcesRequired") != "")
+                {
+                    Thread.Sleep(2000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.FindElement(By.CssSelector("input[name=noOfCandidatesNeeded]")).SendKeys(ExcelLibrary.ReadData(1, "ResourcesRequired"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -383,13 +439,25 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                webDriver.FindElement(By.CssSelector("img[onclick*=candidatesNeededBy]")).Click();
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
-                selectMonth.SelectByIndex(11);
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                webDriver.FindElement(By.LinkText("28")).Click();
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                if (ExcelLibrary.ReadData(1, "CandidatesNeededBy") != "")
+                {
+                    webDriver.FindElement(By.CssSelector("img[onclick*=candidatesNeededBy]")).Click();
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+
+                    string candidateRequiredDate = ExcelLibrary.ReadData(1, "CandidatesNeededBy");
+                    string[] candidateRequiredDateArr = candidateRequiredDate.Split(new char[] { '/' });
+                    string day = candidateRequiredDateArr[1];
+                    string month = candidateRequiredDateArr[0];
+                    string year = candidateRequiredDateArr[2].Substring(0, 4);
+
+                    SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
+                    selectMonth.SelectByIndex(Convert.ToInt32(month) - 1);
+                    SelectElement selectYear = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeYear]")));
+                    selectYear.SelectByText(year);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.FindElement(By.LinkText(day)).Click();
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -402,10 +470,14 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                SelectElement selectBillableStatus = new SelectElement(webDriver.FindElement(By.Name("billabilityStatus")));
-                selectBillableStatus.SelectByText(ExcelLibrary.ReadData(1, "BillabilityStatus"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                if (ExcelLibrary.ReadData(1, "BillabilityStatus") != "")
+                {
+                    Thread.Sleep(2000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    SelectElement selectBillableStatus = new SelectElement(webDriver.FindElement(By.Name("billabilityStatus")));
+                    selectBillableStatus.SelectByText(ExcelLibrary.ReadData(1, "BillabilityStatus"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -418,10 +490,14 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-                SelectElement selectBillableType = new SelectElement(webDriver.FindElement(By.Name("billedTypes")));
-                selectBillableType.SelectByText(ExcelLibrary.ReadData(1, "BillabilityType"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                if (ExcelLibrary.ReadData(1, "BillabilityType") != "")
+                {
+                    Thread.Sleep(2000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    SelectElement selectBillableType = new SelectElement(webDriver.FindElement(By.Name("billedTypes")));
+                    selectBillableType.SelectByText(ExcelLibrary.ReadData(1, "BillabilityType"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -435,9 +511,13 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                SelectElement selectClientInterview = new SelectElement(webDriver.FindElement(By.Name("clientInterview")));
-                selectClientInterview.SelectByText(ExcelLibrary.ReadData(1, "ClientInterview"));
-                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                if (ExcelLibrary.ReadData(1, "ClientInterview") != "")
+                {
+                    Thread.Sleep(2000);
+                    SelectElement selectClientInterview = new SelectElement(webDriver.FindElement(By.Name("clientInterview")));
+                    selectClientInterview.SelectByText(ExcelLibrary.ReadData(1, "ClientInterview"));
+                    SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                }
             }
             catch(Exception ex)
             {
@@ -448,51 +528,82 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the certainity")]
         public void ThenSelectTheCertainity()
         {
-            SelectElement selectClientInterview = new SelectElement(webDriver.FindElement(By.Name("resCertainity")));
-            selectClientInterview.SelectByText(ExcelLibrary.ReadData(1, "Certainity"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "Certainity") != "")
+            {
+                Thread.Sleep(2000);
+                SelectElement selectClientInterview = new SelectElement(webDriver.FindElement(By.Name("resCertainity")));
+                selectClientInterview.SelectByText(ExcelLibrary.ReadData(1, "Certainity"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the max budget")]
         public void ThenEnterTheMaxBudget()
         {
-            webDriver.FindElement(By.CssSelector("input[name=jbRqstBudget]")).SendKeys(ExcelLibrary.ReadData(1, "BudgetUpto"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "BudgetUpto") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("input[name=jbRqstBudget]")).SendKeys(ExcelLibrary.ReadData(1, "BudgetUpto"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the job description")]
         public void ThenEnterTheJobDescription()
         {
-            webDriver.FindElement(By.CssSelector("textarea[name=comments]")).SendKeys(ExcelLibrary.ReadData(1, "JobDescription"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "JobDescription") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("textarea[name=comments]")).SendKeys(ExcelLibrary.ReadData(1, "JobDescription"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the billing rate")]
         public void ThenEnterTheBillingRate()
         {
-            webDriver.FindElement(By.CssSelector("input[name=billingRate]")).SendKeys(ExcelLibrary.ReadData(1, "BillingRate"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "BillingRate") != "") {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("input[name=billingRate]")).SendKeys(ExcelLibrary.ReadData(1, "BillingRate"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Select the billing start date")]
         public void ThenSelectTheBillingStartDate()
         {
-            webDriver.FindElement(By.CssSelector("img[onclick*=billingStartDt]")).Click();
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
-            selectMonth.SelectByIndex(11);
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.LinkText("30")).Click();
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "BillingStartDate") != "")
+            {
+                webDriver.FindElement(By.CssSelector("img[onclick*=billingStartDt]")).Click();
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                Thread.Sleep(2000);
+                string billingDate = ExcelLibrary.ReadData(1, "BillingStartDate");
+                string[] billingDateArr = billingDate.Split(new char[] { '/' });
+                string day = billingDateArr[1];
+                string month = billingDateArr[0];
+                string year = billingDateArr[2].Substring(0, 4);
+
+                SelectElement selectMonth = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeMonth]")));
+                selectMonth.SelectByIndex(Convert.ToInt32(month) - 1);
+                SelectElement selectYear = new SelectElement(webDriver.FindElement(By.CssSelector("select[onchange*=changeYear]")));
+                selectYear.SelectByText(year);
+                webDriver.FindElement(By.LinkText(day)).Click();
+                Thread.Sleep(2000);
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Select the requirement type")]
         public void ThenSelectTheRequirementType()
         {
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("reqTypeExp")));
-            selectMandatorySkills.SelectByText(ExcelLibrary.ReadData(1, "RequirementType"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "RequirementType") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                SelectElement selectMandatorySkills = new SelectElement(webDriver.FindElement(By.Name("reqTypeExp")));
+                selectMandatorySkills.SelectByText(ExcelLibrary.ReadData(1, "RequirementType"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Search for account manager")]
@@ -514,12 +625,18 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the account manager")]
         public void ThenSelectTheAccountManager()
         {
-            webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "AccountManager"));
-            webDriver.FindElement(By.CssSelector("a[href*=search]")).Click(); 
-            webDriver.FindElement(By.CssSelector(".NewTableDataOdd input[type=checkbox]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "AccountManager") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "AccountManager"));
+                webDriver.FindElement(By.CssSelector("a[href*=search]")).Click();
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector(".NewTableDataOdd input[type=checkbox]")).Click();
+                webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Search for reporting manager")]
@@ -541,39 +658,57 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Select the reporting manager")]
         public void ThenSelectTheReportingManager()
         {
-            webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "ReportingManager"));
-            webDriver.FindElement(By.CssSelector("a[href*=search]")).Click();
-            webDriver.FindElement(By.CssSelector(".NewTableDataOdd input[type=checkbox]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
-            webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "ReportingManager") != "")
+            {
+                webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "ReportingManager"));
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("a[href*=search]")).Click();
+                webDriver.FindElement(By.CssSelector(".NewTableDataOdd input[type=checkbox]")).Click();
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the minimum experience")]
         public void ThenEnterTheMinimumExperience()
         {
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.CssSelector("input[name=minExperience]")).SendKeys(ExcelLibrary.ReadData(1, "MinimumExperience"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "MinimumExperience") != "")
+            {
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                webDriver.FindElement(By.CssSelector("input[name=minExperience]")).SendKeys(ExcelLibrary.ReadData(1, "MinimumExperience"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the preferred experience")]
         public void ThenEnterThePreferredExperience()
         {
-            webDriver.FindElement(By.CssSelector("input[name=preExperience]")).SendKeys(ExcelLibrary.ReadData(1, "PreferredExperience"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "PreferredExperience") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("input[name=preExperience]")).SendKeys(ExcelLibrary.ReadData(1, "PreferredExperience"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the seat ID")]
         public void ThenEnterTheSeatID()
         {
-            webDriver.FindElement(By.CssSelector("input[name=seatIds]")).SendKeys(ExcelLibrary.ReadData(1, "SeatID"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "SeatID") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("input[name=seatIds]")).SendKeys(ExcelLibrary.ReadData(1, "SeatID"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Search for any certifications")]
         public void ThenSearchForAnyCertifications()
         {
+            Thread.Sleep(2000);
             webDriver.FindElement(By.CssSelector("a[href*=showLicense]")).Click();
             SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
         }
@@ -592,6 +727,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             if (ExcelLibrary.ReadData(1, "Certifications") != "")
             {
+                Thread.Sleep(2000);
                 string[] niceToHaveSkills = ExcelLibrary.ReadData(1, "Certifications").Split(new char[1] { ',' });
                 for (int i = 0; i < niceToHaveSkills.Length; i++)
                 {
@@ -599,7 +735,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     selectMandatorySkills.SelectByText(niceToHaveSkills[i]);
                     webDriver.FindElement(By.CssSelector("a[href*=addSrcToDestList]")).Click();
                 }
-
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=licenseDone]")).Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -608,68 +744,118 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         [Then(@"Enter the work location")]
         public void ThenEnterTheWorkLocation()
         {
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.FindElement(By.CssSelector("input[name=wrkLocation]")).SendKeys(ExcelLibrary.ReadData(1, "WorkLocation"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "WorkLocation") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                webDriver.FindElement(By.CssSelector("input[name=wrkLocation]")).SendKeys(ExcelLibrary.ReadData(1, "WorkLocation"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the project duration")]
         public void ThenEnterTheProjectDuration()
         {
-            webDriver.FindElement(By.CssSelector("input[name=projectDuration]")).SendKeys(ExcelLibrary.ReadData(1, "ProjectDurationInMonths"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "ProjectDurationInMonths") != "")
+            {
+                Thread.Sleep(2000);
+                webDriver.FindElement(By.CssSelector("input[name=projectDuration]")).SendKeys(ExcelLibrary.ReadData(1, "ProjectDurationInMonths"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Select will the resource lead a team Yes or No")]
         public void ThenSelectWillTheResourceLeadATeamYesOrNo()
         {
-            SelectElement selectIsLead = new SelectElement(webDriver.FindElement(By.Name("directOffshoreTeam")));
-            selectIsLead.SelectByText(ExcelLibrary.ReadData(1, "WillResourceLeadATeam"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "WillResourceLeadATeam") != "")
+            {
+                Thread.Sleep(2000);
+                SelectElement selectIsLead = new SelectElement(webDriver.FindElement(By.Name("directOffshoreTeam")));
+                selectIsLead.SelectByText(ExcelLibrary.ReadData(1, "WillResourceLeadATeam"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Select will the resume be sent to client Yes or No")]
         public void ThenSelectWillTheResumeBeSentToClientYesOrNo()
         {
-            SelectElement selectIsResumeSentToClient = new SelectElement(webDriver.FindElement(By.Name("resumeToClient")));
-            selectIsResumeSentToClient.SelectByText(ExcelLibrary.ReadData(1, "WillResumeBeSubmittedToClient"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "WillResumeBeSubmittedToClient") != "")
+            {
+                Thread.Sleep(2000);
+                SelectElement selectIsResumeSentToClient = new SelectElement(webDriver.FindElement(By.Name("resumeToClient")));
+                selectIsResumeSentToClient.SelectByText(ExcelLibrary.ReadData(1, "WillResumeBeSubmittedToClient"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Select system type")]
         public void ThenSelectSystemType()
         {
-            SelectElement selectSystemType = new SelectElement(webDriver.FindElement(By.Name("systemType")));
-            selectSystemType.SelectByText(ExcelLibrary.ReadData(1, "SystemType"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "SystemType") != "")
+            {
+                Thread.Sleep(2000);
+                SelectElement selectSystemType = new SelectElement(webDriver.FindElement(By.Name("systemType")));
+                selectSystemType.SelectByText(ExcelLibrary.ReadData(1, "SystemType"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Select configurations")]
         public void ThenSelectConfigurations()
         {
-            Thread.Sleep(2000);
-            SelectElement selectConfiguration = new SelectElement(webDriver.FindElement(By.Name("configuration")));
-            selectConfiguration.SelectByText(ExcelLibrary.ReadData(1, "Configurations"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "Configurations") != "")
+            {
+                Thread.Sleep(2000);
+                SelectElement selectConfiguration = new SelectElement(webDriver.FindElement(By.Name("configuration")));
+                selectConfiguration.SelectByText(ExcelLibrary.ReadData(1, "Configurations"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Enter the comments if any for the job request")]
         public void ThenEnterTheCommentsIfAnyForTheJobRequest()
         {
-            webDriver.FindElement(By.CssSelector("textarea[name=addComments]")).SendKeys(ExcelLibrary.ReadData(1, "Comments"));
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            if (ExcelLibrary.ReadData(1, "Comments") != "")
+            {
+                webDriver.FindElement(By.CssSelector("textarea[name=addComments]")).SendKeys(ExcelLibrary.ReadData(1, "Comments"));
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            }
         }
 
         [Then(@"Submit the job request form")]
         public void ThenSubmitTheJobRequestForm()
         {
-            webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
-            SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+            try
+            {
+                webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
+                SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+                Thread.Sleep(2000);
+                if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
+                {
+                    Thread.Sleep(2000);
+                    IAlert alert = webDriver.SwitchTo().Alert();
+                    string alertText = alert.Text;
+                    SpecHooks.extentTest.Fail(alertText);
+                    alert.Accept();
+                    
+                }
+                else
+                {
+                    Thread.Sleep(4000);
+                    webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                    webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                    webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
+                }
+            }
+            catch (Exception ex)
+            {
 
-            Thread.Sleep(4000);
-            webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
-            webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
-            webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
+            }
+            finally
+            {
+                Thread.Sleep(5000);
+                webDriver.Quit();
+            }
         }
 
     }

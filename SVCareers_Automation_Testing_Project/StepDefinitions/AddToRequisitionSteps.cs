@@ -41,7 +41,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                webDriver.Navigate().GoToUrl("http://spicareers-uat/spicareers/");
+                webDriver.Navigate().GoToUrl(ConfigurationManager.AppSettings["SVCareersURL"].ToString());
                 webDriver.Manage().Window.Maximize();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -78,6 +78,14 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 webDriver.FindElement(By.Id("svCareersLoginId")).Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+
+                if (webDriver.FindElement(By.ClassName("Mandatory")).Text != "")
+                {
+                    SpecHooks.extentTest.Fail("Invalid username or password");
+                    Thread.Sleep(5000);
+                    webDriver.Close();
+                    webDriver.Quit();
+                }
             }
             catch(Exception ex)
             {
@@ -110,6 +118,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 int isJobReqSelected = 0;
                 do
                 {
+                    Thread.Sleep(2000);
                     webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                     webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
                     IWebElement iframeJobRequests = webDriver.FindElement(By.Id("frmJbRqst"));
@@ -149,7 +158,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     else
                     {
                         isJobReqSelected = 1;
-                        SpecHooks.extentTest.Warning("There are no job requests available to create the requisition");
+                        SpecHooks.extentTest.Fail("There are no job requests available to create the requisition");
                         break;
                     }
 
@@ -168,6 +177,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                 webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
                 webDriver.FindElement(By.CssSelector("a[href*=createReqFrmJbRqst]")).Click();
@@ -184,6 +194,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                 webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
                 webDriver.FindElement(By.Name("clientJobCode")).SendKeys(ExcelLibrary.ReadData(1, "ClientJobCode"));
@@ -200,6 +211,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 SelectElement selectPriority = new SelectElement(webDriver.FindElement(By.Name("priority")));
                 selectPriority.SelectByText(ExcelLibrary.ReadData(1, "Priority"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
@@ -215,6 +227,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.Name("billingRate")).SendKeys(ExcelLibrary.ReadData(1, "BillingRate"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -229,6 +242,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.Name("prjDuration")).SendKeys(ExcelLibrary.ReadData(1, "ProjectDuration"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -243,6 +257,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 SelectElement selectIfReferralBeRewarded = new SelectElement(webDriver.FindElement(By.Name("referral")));
                 selectIfReferralBeRewarded.SelectByText(ExcelLibrary.ReadData(1, "RewardsForReferral"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
@@ -273,6 +288,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.Name("targetStartDate")).Clear();
                 webDriver.FindElement(By.Name("targetStartDate")).SendKeys(ExcelLibrary.ReadData(1, "CandidateNeededBy"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
@@ -288,6 +304,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 SelectElement selectRequisitionType = new SelectElement(webDriver.FindElement(By.Name("requisitionType")));
                 selectRequisitionType.SelectByText(ExcelLibrary.ReadData(1, "RequisitionType"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
@@ -317,6 +334,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.Name("totalNumberOfPositions")).SendKeys(ExcelLibrary.ReadData(1, "NoOfPositions"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -331,6 +349,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 SelectElement selectRationale = new SelectElement(webDriver.FindElement(By.Name("justification")));
                 selectRationale.SelectByText(ExcelLibrary.ReadData(1, "Rationale"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
@@ -346,6 +365,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.Name("recruiterName")).SendKeys(ExcelLibrary.ReadData(1, "Recruiter"));
                 Thread.Sleep(1000);
                 webDriver.FindElement(By.CssSelector("select[name=recruiterIds] option:nth-child(1)")).Click();
@@ -363,6 +383,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.Name("hiringManager")).SendKeys(ExcelLibrary.ReadData(1, "HiringManager"));
                 Thread.Sleep(1000);
                 webDriver.FindElement(By.CssSelector("select[name=hiringManagerIds] option:nth-child(1)")).Click();
@@ -393,6 +414,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=jobDescriptionNext]")).Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -441,6 +463,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 int roundIndex = 0;
                 if (ExcelLibrary.ReadData(1, "InterviewType1") != "")
                 {
+                    Thread.Sleep(2000);
                     roundIndex = roundIndex + 1;
                     SelectElement selectInterviewRoundType1 = new SelectElement(webDriver.FindElement(By.Name("requisitionForm[0].slctdIntrvType[0]")));
                     selectInterviewRoundType1.SelectByText(ExcelLibrary.ReadData(1, "InterviewType1"));
@@ -451,6 +474,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
 
                 if (ExcelLibrary.ReadData(1, "InterviewType2") != "")
                 {
+                    Thread.Sleep(2000);
                     roundIndex = roundIndex + 1;
                     SelectElement selectInterviewRoundType2 = new SelectElement(webDriver.FindElement(By.Name("requisitionForm[1].slctdIntrvType[1]")));
                     selectInterviewRoundType2.SelectByText(ExcelLibrary.ReadData(1, "InterviewType2"));
@@ -461,6 +485,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
 
                 if (ExcelLibrary.ReadData(1, "InterviewType3") != "")
                 {
+                    Thread.Sleep(2000);
                     roundIndex = roundIndex + 1;
                     SelectElement selectInterviewRoundType3 = new SelectElement(webDriver.FindElement(By.Name("requisitionForm[2].slctdIntrvType[2]")));
                     selectInterviewRoundType3.SelectByText(ExcelLibrary.ReadData(1, "InterviewType3"));
@@ -493,6 +518,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                 webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
                 webDriver.FindElement(By.CssSelector("a[href*=addInterviewer]")).Click();
@@ -523,11 +549,15 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("input[name=txtSearchKey]")).SendKeys(ExcelLibrary.ReadData(1, "Interviewer"));
                 webDriver.FindElement(By.CssSelector("a[href*=search]")).Click();
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("table.GreenBorder tr.NewTableDataOdd input[type=checkbox]")).Click();
                 webDriver.FindElement(By.CssSelector("a[href*=add]")).Click();
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=done]")).Click();
+                Thread.Sleep(2000);
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
             catch(Exception ex)
@@ -541,6 +571,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                 webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSMainFrame")));
                 webDriver.FindElement(By.CssSelector("a img[title=Next]")).Click();
@@ -557,6 +588,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=post]")).Click();
                 SpecHooks.extentTest.Pass("Job request has been added to requisition successfully.");
             }
@@ -571,9 +603,14 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a img[title=Next]")).Click();
                 SpecHooks.extentTest.Pass("Job request has been added to requisition successfully.");
                 Thread.Sleep(4000);
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
+                Thread.Sleep(5000);
                 webDriver.Close();
             }
             catch(Exception ex)
@@ -587,8 +624,14 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("a[href*=unpost]")).Click();
                 SpecHooks.extentTest.Pass("Job request which need to be added to requisition has been saved and not posted.");
+                Thread.Sleep(4000);
+                Thread.Sleep(4000);
+                webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
+                webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
+                webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
                 Thread.Sleep(4000);
                 webDriver.Close();
             }

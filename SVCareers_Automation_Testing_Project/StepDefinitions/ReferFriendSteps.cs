@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using TechTalk.SpecFlow;
 using System.Configuration;
+using NUnit.Framework;
 
 namespace SVCareers_Automation_Testing_Project.StepDefinitions
 {
@@ -72,6 +73,17 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 elLoginBtn.Click();
 
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
+
+                if (webDriver.FindElements(By.ClassName("Mandatory")).Count > 0)
+                {
+                    if (webDriver.FindElement(By.ClassName("Mandatory")).Text != "")
+                    {
+                        SpecHooks.extentTest.Fail("Invalid username or password");
+                        Thread.Sleep(5000);
+                        webDriver.Close();
+                        webDriver.Quit();
+                    }
+                }
             }
             catch(Exception ex)
             {
@@ -85,6 +97,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(4000);
                 if (webDriver.FindElements(By.CssSelector("#ShowDesc")).Count > 0)
                 {
                     IWebElement elJobRequest = webDriver.FindElement(By.CssSelector("#ShowDesc table tbody tr:nth-child(3) input[type=checkbox]"));
@@ -95,7 +108,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 }
                 else
                 {
-                    SpecHooks.extentTest.Debug("No job requests found");
+                    SpecHooks.extentTest.Fail("No job requests found");
                 }
             }
             catch(Exception ex)
@@ -109,8 +122,20 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
-                IWebElement elReferFrd = webDriver.FindElement(By.CssSelector("#rowForReferAFriendToJob a"));
-                elReferFrd.Click();
+                Thread.Sleep(4000);
+                if (webDriver.FindElements(By.CssSelector("#rowForReferAFriendToJob a")).Count > 0)
+                {
+                    IWebElement elReferFrd = webDriver.FindElement(By.CssSelector("#rowForReferAFriendToJob a"));
+                    elReferFrd.Click();
+                }
+                else if(webDriver.FindElements(By.CssSelector("a[href*=ChangeMode]")).Count > 0)
+                {
+                    webDriver.FindElement(By.CssSelector("a[href*=ChangeMode]")).Click();
+                    IWebElement elJobRequest = webDriver.FindElement(By.CssSelector("#ShowDesc table tbody tr:nth-child(3) input[type=checkbox]"));
+                    elJobRequest.Click();
+                    IWebElement elReferFrd = webDriver.FindElement(By.CssSelector("#rowForReferAFriendToJob a"));
+                    elReferFrd.Click();
+                }
 
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -200,6 +225,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input#" + ExcelLibrary.ReadData(1, "Gender"))).Click();
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -214,6 +240,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[name=candEmailId]")).SendKeys(ExcelLibrary.ReadData(1, "Email"));
                 SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
             }
@@ -231,7 +258,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -239,6 +266,8 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                     webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
                     webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
+                    Thread.Sleep(5000);
+                    webDriver.Close();
                 }
             }
             catch(Exception ex)
@@ -254,7 +283,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -284,7 +313,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -312,7 +341,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -341,7 +370,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -367,9 +396,10 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
         {
             try
             {
+                Thread.Sleep(2000);
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -382,9 +412,9 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                 {
                     IWebElement fileUpload = webDriver.FindElement(By.CssSelector("form[name=referAFriendForm] input[type=file]"));
                     fileUpload.SendKeys(ExcelLibrary.ReadData(1, "Resume"));
-                    if (!ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".pdf") || !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".rtl") || !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".txt") || !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".doc"))
+                    if (!ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".pdf") && !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".rtl") && !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".txt") && !ExcelLibrary.ReadData(1, "Resume").ToLower().Contains(".doc"))
                     {
-                        SpecHooks.extentTest.Pass("Resume uploaded is not in .doc or .pdf or .rtl, .txt formats");
+                        SpecHooks.extentTest.Fail("Resume uploaded is not in .doc or .pdf or .rtl, .txt formats");
                     }
                     SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
                 }
@@ -402,7 +432,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -431,7 +461,7 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
 
@@ -446,10 +476,10 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
                     SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
                     WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
                     wait.Until(ExpectedConditions.AlertIsPresent());
+                    Thread.Sleep(4000);
                     IAlert alert = webDriver.SwitchTo().Alert();
                     alert.Accept();
-
-                    Thread.Sleep(4000);
+                    
                     webDriver.SwitchTo().Window(webDriver.WindowHandles.Last());
                     webDriver.SwitchTo().Frame(webDriver.FindElement(By.Name("JRAMPSHeader")));
                     webDriver.FindElement(By.CssSelector("a[title=Logout]")).Click();
@@ -468,14 +498,14 @@ namespace SVCareers_Automation_Testing_Project.StepDefinitions
             {
                 if (ExpectedConditions.AlertIsPresent()(webDriver) != null)
                 {
-                    SpecHooks.extentTest.Pass("Candidate has already been referred");
+                    SpecHooks.extentTest.Fail("Candidate has already been referred");
                     Thread.Sleep(2000);
                     webDriver.Close();
                 }
                 else
                 {
                     SelectElement selectTechnology = new SelectElement(webDriver.FindElement(By.Name("candType")));
-                    selectTechnology.SelectByText(ExcelLibrary.ReadData(2, "CandidateType"));
+                    selectTechnology.SelectByText(ExcelLibrary.ReadData(1, "CandidateType"));
                     SpecHooks.extentTest.Pass(ScenarioContext.Current.StepContext.StepInfo.Text);
                 }
             }

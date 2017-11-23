@@ -33,7 +33,7 @@ namespace SVCareers_Automation_Testing_Project.Hooks
             //GenericHelper.CreatFolder(ResultPath);
 
             // Creating the HTML extent report
-            htmlReporter = new ExtentHtmlReporter(ResultPath + "\\Report.html");
+            htmlReporter = new ExtentHtmlReporter(ResultPath + "\\Report_"+ currentTime +".html");
             htmlReporter.Configuration().Theme = Theme.Standard;
             htmlReporter.Configuration().DocumentTitle = "HTML Report";
 
